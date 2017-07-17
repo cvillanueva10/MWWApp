@@ -35,6 +35,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let selectedIndex = NSIndexPath(item: 1, section: 0) as IndexPath
         collectionView.selectItem(at: selectedIndex, animated: false, scrollPosition: [])
         
+        
         setupHorizontalBar()
         
     }

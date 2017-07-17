@@ -13,7 +13,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Most Wanted Week"
+        navigationItem.title = "Home"
         navigationController?.navigationBar.isTranslucent = false
         
         
@@ -23,10 +23,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         pageTitle.textColor = UIColor.white
         navigationItem.titleView = pageTitle
         
+        
         setupCollectionView()
         setupMenuBar()
         setupNavButtons()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView?.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)    }
+    
+    
     let cellId = "cellId"
     
     func setupCollectionView(){
@@ -38,10 +45,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
         //collectionView?.register(AnnouncementCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-    
+
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 75, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 75, 0)
         collectionView?.isPagingEnabled = true
+        
+        menuBar.horizontalBarLeftAnchorConstrait?.constant = view.frame.width / 3
     }
     
     
