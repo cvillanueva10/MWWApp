@@ -1,18 +1,17 @@
 //
-//  DefaultCell.swift
+//  CenterCell.swift
 //  MostWantedWeek
 //
-//  Created by Christopher Villanueva on 7/17/17.
+//  Created by Christopher Villanueva on 7/18/17.
 //  Copyright © 2017 Christopher Villanueva. All rights reserved.
 //
 
 import UIKit
 
-class DefaultCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    let cellId = "cellId"
-    let eventCellId = "eventCellId"
+class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
+    let cellId = "cellId"
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -33,7 +32,7 @@ class DefaultCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegat
         
         return [chrisTestAnnouncement, nhungAnnouncement, leoAnnouncement, chrisAnnouncement]
     }()
-   
+    
     override func setupViews() {
         super.setupViews()
         
