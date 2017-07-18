@@ -12,7 +12,12 @@ class Announcement: NSObject {
     
     var text: String?
     var timeStamp: String?
-    var textBlockSize: CGFloat?
     
     var profile: Profile?
+    
+    init(text: String, timeStamp: String, profile: Profile){
+        self.text = text
+        self.timeStamp = timeStamp
+        self.profile = profile
+    }
 }

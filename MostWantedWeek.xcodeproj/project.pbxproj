@@ -20,6 +20,7 @@
 		5679595D1F133E6200FFDAE2 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679595C1F133E6200FFDAE2 /* SettingsController.swift */; };
 		5679595F1F1429AA00FFDAE2 /* SettingCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679595E1F1429AA00FFDAE2 /* SettingCells.swift */; };
 		567959611F149DE600FFDAE2 /* MenuTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567959601F149DE600FFDAE2 /* MenuTab.swift */; };
+		567959631F1D505D00FFDAE2 /* DefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567959621F1D505D00FFDAE2 /* DefaultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		5679595C1F133E6200FFDAE2 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5679595E1F1429AA00FFDAE2 /* SettingCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCells.swift; sourceTree = "<group>"; };
 		567959601F149DE600FFDAE2 /* MenuTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTab.swift; sourceTree = "<group>"; };
+		567959621F1D505D00FFDAE2 /* DefaultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				567431DD1F0DCE8700BFC839 /* AnnouncementCell.swift */,
 				567431E01F0DD73400BFC839 /* MenuBar.swift */,
 				5679595E1F1429AA00FFDAE2 /* SettingCells.swift */,
+				567959621F1D505D00FFDAE2 /* DefaultCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 			files = (
 				567959611F149DE600FFDAE2 /* MenuTab.swift in Sources */,
 				5679595D1F133E6200FFDAE2 /* SettingsController.swift in Sources */,
+				567959631F1D505D00FFDAE2 /* DefaultCell.swift in Sources */,
 				567431E41F12E4AF00BFC839 /* Announcement.swift in Sources */,
 				567431DE1F0DCE8700BFC839 /* AnnouncementCell.swift in Sources */,
 				567431CA1F0B2AEA00BFC839 /* HomeController.swift in Sources */,

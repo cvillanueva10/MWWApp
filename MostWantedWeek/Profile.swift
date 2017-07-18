@@ -12,4 +12,9 @@ class Profile: NSObject {
     
     var profileImageName: String?
     var profileName: String?
+    
+    init (profileImageName: String, profileName: String){
+        self.profileImageName = profileImageName
+        self.profileName = profileName
+    }
 }

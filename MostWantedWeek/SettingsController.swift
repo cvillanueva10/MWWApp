@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsController: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    let cellId = "cellId"
     
     let dimView = UIView()
     
@@ -26,6 +27,8 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
         
         return cv
     }()
+    
+    var homeController: HomeController?
     
     var menuTabObjs: [MenuTab] = {
         var aboutTab = MenuTab(logoName: "about", labelName: "About MWW")
@@ -63,8 +66,6 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
             }, completion: nil)
         }
     }
-    
-    var homeController: HomeController?
 
     func dismissHandler(menutab: MenuTab){
         
@@ -73,14 +74,12 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
             self.collectionView.frame = CGRect(x: -200, y: 100, width: 200, height: 2000)
             self.logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 100)
         })
-            
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return menuTabObjs.count
     }
     
-    let cellId = "cellId"
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SettingsCell
 

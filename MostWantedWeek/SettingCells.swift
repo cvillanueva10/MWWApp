@@ -15,10 +15,8 @@ class SettingsCell: BaseCell {
             backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.white
             tabLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
             tabIcon.tintColor = isHighlighted ? UIColor.white : UIColor.lightGray
-            
         }
     }
-    
     var menuTab: MenuTab? {
         didSet{
             tabLabel.text = menuTab?.tabLabelName

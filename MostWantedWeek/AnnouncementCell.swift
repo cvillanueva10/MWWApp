@@ -13,15 +13,12 @@ class BaseCell: UICollectionViewCell{
         super.init(frame: frame)
         setupViews()
     }
-    
     func setupViews(){
     
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 class AnnouncementCell: BaseCell{
@@ -40,8 +37,7 @@ class AnnouncementCell: BaseCell{
     
     let announcementTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi I love Nhung Thi"
-        
+        textView.text = " "
         return textView
     }()
     
@@ -122,11 +118,7 @@ class AnnouncementCell: BaseCell{
         
         //Seperator line
         addConstraintsWithFormat(format: "H:|[v0]|", views: seperatorView)
-        
-        
     }
-    
-    
 }
 
 

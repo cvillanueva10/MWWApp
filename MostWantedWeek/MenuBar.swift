@@ -13,6 +13,8 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     let cellId = "cellId"
     let iconNames = ["scoreboard", "announcements", "schedule"]
     
+    var homeController: HomeController?
+    var horizontalBarLeftAnchorConstrait : NSLayoutConstraint?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -35,11 +37,8 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let selectedIndex = NSIndexPath(item: 1, section: 0) as IndexPath
         collectionView.selectItem(at: selectedIndex, animated: false, scrollPosition: [])
         
-        
         setupHorizontalBar()
-        
     }
-    var horizontalBarLeftAnchorConstrait : NSLayoutConstraint?
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
@@ -74,11 +73,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = CGFloat(indexPath.item) * frame.width / 3
-        horizontalBarLeftAnchorConstrait?.constant = x
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
+        homeController?.scrollToSectionIndex(sectionIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
