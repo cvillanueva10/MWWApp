@@ -12,15 +12,15 @@ class EventCell: BaseCell {
     
     let eventName: UILabel = {
         let name = UILabel()
-        //name.text = "Volleyball Tournament"
-        name.backgroundColor = .red
+        name.text = "Volleyball Tournament"
+        //name.backgroundColor = .red
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
     let eventDetails: UITextView = {
         let details = UITextView()
-        //details.text = "Thursday 7pm - 10pm, Gym"
-        details.backgroundColor = .purple
+        details.text = "Thursday 7pm - 10pm, Gym"
+       // details.backgroundColor = .purple
         details.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0)
         details.translatesAutoresizingMaskIntoConstraints = false
         return details
@@ -28,12 +28,11 @@ class EventCell: BaseCell {
     
     let eventDescription: UITextView = {
         let description = UITextView()
-        //description.text = "Each sorority participating in MWW will have the chance to win points through our annual volleyball tournament!"
-        description.backgroundColor = .blue
+        description.text = "Each sorority participating in MWW will have the chance to win points through our annual volleyball tournament!"
+        //description.backgroundColor = .blue
         description.translatesAutoresizingMaskIntoConstraints = false
         return description
     }()
-    
     
     let separatorLine: UIView = {
         let line = UIView()

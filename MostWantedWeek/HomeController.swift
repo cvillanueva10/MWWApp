@@ -11,6 +11,7 @@ import UIKit
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let centerCellId = "centerCellId"
+    let leftCellId = "leftCellId"
     let rightCellId = "rightCellId"
     
     lazy var menuBar: MenuBar = {
@@ -58,6 +59,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView?.register(RightCell.self, forCellWithReuseIdentifier: rightCellId)
         collectionView?.register(CenterCell.self, forCellWithReuseIdentifier: centerCellId)
+        collectionView?.register(LeftCell.self, forCellWithReuseIdentifier: leftCellId)
+        
 
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 75, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 75, 0)
@@ -113,10 +116,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.item == 2 {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: rightCellId, for: indexPath)
+        let identifier: String
+        if indexPath.item == 0 {
+            identifier = leftCellId
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: centerCellId, for: indexPath)
+        else if indexPath.item == 2 {
+            identifier = rightCellId
+        }
+        else{
+            identifier = centerCellId
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

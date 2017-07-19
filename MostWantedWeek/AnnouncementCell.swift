@@ -118,6 +118,8 @@ class AnnouncementCell: BaseCell{
         
         //Seperator line
         addConstraintsWithFormat(format: "H:|[v0]|", views: seperatorView)
+        
+        
     }
 }
 
