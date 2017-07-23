@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -25,13 +26,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         controller.homeController = self
         return controller
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+               
         navigationItem.title = "Home"
         navigationController?.navigationBar.isTranslucent = false
-        
         
         let pageTitle = UILabel(frame: CGRect(x:0,y:0,width:100,height:100))
         pageTitle.text = "Most Wanted Week"
@@ -87,13 +87,22 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func showControllerForMenuTab(menutab: MenuTab){
-        let dummyTabViewController = UIViewController()
-        dummyTabViewController.navigationItem.title = menutab.tabLabelName
-        dummyTabViewController.view.backgroundColor = UIColor.white
+        let layout = UICollectionViewFlowLayout() 
+        let descriptionController = DescriptionController(collectionViewLayout: layout)
+        let loginController = LoginController()
+        descriptionController.navigationItem.title = menutab.tabLabelName
         navigationController?.navigationBar.titleTextAttributes =
             [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.pushViewController(dummyTabViewController, animated: true)
+        navigationController?.navigationBar.tintColor = .white
+        
+        if(menutab.tabLabelName == "About MWW" || menutab.tabLabelName == "Penny Wars" || menutab.tabLabelName == "Charm-A-Sig" || menutab.tabLabelName == "Meet the Bros"){
+            descriptionController.tab = menutab
+            navigationController?.pushViewController(descriptionController, animated: true)
+            }
+        else if (menutab.tabLabelName == "Profile"){
+            navigationController?.pushViewController(loginController, animated: true)
+        }
     }
     
     func scrollToSectionIndex(sectionIndex: Int){

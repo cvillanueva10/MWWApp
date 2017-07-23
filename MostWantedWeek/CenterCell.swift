@@ -21,6 +21,9 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         return cv
     }()
     
+//    var announcementObjs: [Announcement]?
+//    var profileObjs: [Profile]?
+    
     var announcementObjs: [Announcement] = {
         var chrisProfile = Profile(profileImageName: "ChrisProfilePic", profileName: "Chris Villanueva")
         var nhungProfile = Profile(profileImageName: "NhungProfilePic", profileName: "Nhung Nguyen")
@@ -32,9 +35,61 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         
         return [chrisTestAnnouncement, nhungAnnouncement, leoAnnouncement, chrisAnnouncement]
     }()
+  
+//    func fetchAnnouncements(){
+//        
+//        let url = URL(string: "file:///Users/christophervillanueva/Desktop/test_announcements.json")
+//        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+//            
+//            if error != nil {
+//                print(error!)
+//                return
+//            }
+//            
+//            
+//            DispatchQueue.main.async(execute: {
+//                
+//            })
+//            
+//            do{
+//                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+//                
+//                self.announcementObjs = [Announcement]()
+//                self.profileObjs = [Profile]()
+//                
+//                for dictionary in json as! [[String: AnyObject]] {
+////                
+//                   let profile = Profile()
+//                   let announcementObj = Announcement()
+//                   let pDictionary = dictionary["profile"]
+//                    
+//                    profile.profileName = pDictionary?["profile_name"] as? String
+////                    profile.profileImageName = dictionary["profile_image_name"] as? String
+//                    
+//                    announcementObj.profile = profile
+//                    announcementObj.text = dictionary["text"] as? String
+//                    announcementObj.timeStamp = dictionary["timestamp"] as? String
+//                    
+//                    self.profileObjs?.append(profile)
+//                    self.announcementObjs?.append(announcementObj)
+//
+//                    
+//                }
+//                
+//                
+//                self.collectionView.reloadData()
+//          
+//            } catch let jsonError{
+//                print(jsonError)
+//            }
+//            
+//        }.resume()
+//    }
     
     override func setupViews() {
         super.setupViews()
+        
+//        fetchAnnouncements()
         
         backgroundColor = .brown
         addSubview(collectionView)

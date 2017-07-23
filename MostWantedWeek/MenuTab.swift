@@ -12,10 +12,12 @@ class MenuTab: NSObject {
 
     var tabLogoName: String
     var tabLabelName: String
+    var tabImageName: String
     var tabLabelFont = UIFont.systemFont(ofSize: 16)
     
-    init(logoName: String, labelName: String) {
+    init(logoName: String, labelName: String, imageName: String) {
         self.tabLogoName = logoName
         self.tabLabelName = labelName
+        self.tabImageName = imageName
     }
 }

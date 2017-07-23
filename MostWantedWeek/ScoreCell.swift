@@ -12,22 +12,22 @@ class ScoreCell: BaseCell {
     
     let teamLogo: UIImageView = {
         let logo = UIImageView()
-        logo.backgroundColor = .red
-        logo.translatesAutoresizingMaskIntoConstraints = false
+        logo.contentMode = .scaleAspectFill
+        logo.translatesAutoresizingMaskIntoConstraints = true
         logo.layer.masksToBounds = true
         return logo
     }()
     
     let teamName: UILabel = {
         let name = UILabel()
-        //name.backgroundColor = .blue
+        name.textAlignment = .center
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
     
     let scoreNumber: UILabel = {
         let num = UILabel()
-       // num.backgroundColor = .purple
+        num.textAlignment = .center
         num.translatesAutoresizingMaskIntoConstraints = false
         return num
     }()
@@ -52,7 +52,7 @@ class ScoreCell: BaseCell {
         
         addConstraintsWithFormat(format: "V:|-10-[v0(30)]", views: teamName)
 
-        addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .bottom, relatedBy: .equal, toItem: teamLogo, attribute: .bottom, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .top, relatedBy: .equal, toItem: teamName, attribute: .bottom, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .left, relatedBy: .equal, toItem: teamLogo, attribute: .right, multiplier: 1, constant: 10))
         addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .right, relatedBy: .equal, toItem: teamName, attribute: .right, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))

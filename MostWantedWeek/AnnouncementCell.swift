@@ -23,21 +23,21 @@ class BaseCell: UICollectionViewCell{
 
 class AnnouncementCell: BaseCell{
     
-    var announcement: Announcement? {
+     var announcement: Announcement? {
         didSet{
-            announcementTextView.text = announcement?.text
-            Subtext.text = announcement?.timeStamp
-            UserName.text = announcement?.profile?.profileName
+            
+            self.announcementTextView.text = announcement?.text
+            self.Subtext.text = announcement?.timeStamp
+            self.UserName.text = announcement?.profile?.profileName
             
             if let profileImageName = announcement?.profile?.profileImageName{
-            ProfileImageView.image = UIImage(named: profileImageName)
+            self.ProfileImageView.image = UIImage(named: profileImageName)
             }
         }
     }
     
     let announcementTextView: UITextView = {
         let textView = UITextView()
-        textView.text = " "
         return textView
     }()
     
@@ -50,7 +50,6 @@ class AnnouncementCell: BaseCell{
     let ProfileImageView: UIImageView = {
         let imageView = UIImageView()
         //imageView.backgroundColor = UIColor.red
-        imageView.image = UIImage(named: "ChrisProfilePic")
         imageView.layer.cornerRadius = 22;
         imageView.layer.masksToBounds = true;
         return imageView
@@ -59,7 +58,6 @@ class AnnouncementCell: BaseCell{
     let UserName: UILabel = {
         let name = UILabel()
         //name.backgroundColor = UIColor.gray
-        name.text = "Chris Villanueva"
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
@@ -67,7 +65,6 @@ class AnnouncementCell: BaseCell{
     let Subtext: UITextView = {
         let text = UITextView()
         //text.backgroundColor = UIColor.purple
-        text.text = "Posted Tuesday, July 4, 2017 at 10:50pm"
         text.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0)
         text.translatesAutoresizingMaskIntoConstraints = false
         return text

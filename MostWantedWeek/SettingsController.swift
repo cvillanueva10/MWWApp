@@ -31,14 +31,16 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
     var homeController: HomeController?
     
     var menuTabObjs: [MenuTab] = {
-        var aboutTab = MenuTab(logoName: "about", labelName: "About MWW")
-        var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros")
-        var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig")
-        var scTab = MenuTab(logoName: " ", labelName: "Star and Crescent")
-        var shirtTab = MenuTab(logoName: " ", labelName: "Shirt Orders")
-        var settingsTab = MenuTab(logoName: " ", labelName: "Settings")
+        var aboutTab = MenuTab(logoName: "about", labelName: "About MWW", imageName: "mww_group")
+        var moneyTab = MenuTab(logoName: "money", labelName: "Penny Wars", imageName: "")
+        var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig", imageName: "")
+        var scTab = MenuTab(logoName: "star", labelName: "Star and Crescent", imageName: "")
+        var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "")
+        var shirtTab = MenuTab(logoName: "shirt", labelName: "Shirt Orders", imageName: "")
+        var profileTab = MenuTab(logoName: "profile", labelName: "Profile", imageName: "")
+       // var settingsTab = MenuTab(logoName: " ", labelName: "Settings")
         
-        return [aboutTab, brosTab, tieTab, scTab, shirtTab, settingsTab]
+        return [aboutTab, moneyTab, tieTab, scTab, brosTab, shirtTab, profileTab]
     }()
 
     func showSettings(){
@@ -54,15 +56,15 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
             window.addSubview(collectionView)
             window.addSubview(logoView)
            
-            collectionView.frame = CGRect(x: -200, y: 100, width: 200, height: window.frame.height - 100)
-            logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 100)
+            collectionView.frame = CGRect(x: -200, y: 125, width: 200, height: window.frame.height - 125)
+            logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 125)
             
             dimView.frame = window.frame
             
             UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.dimView.alpha = 1
-                self.collectionView.frame = CGRect(x: 0, y: 100, width: 200, height: window.frame.height - 100)
-                self.logoView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+                self.collectionView.frame = CGRect(x: 0, y: 125, width: 200, height: window.frame.height - 125)
+                self.logoView.frame = CGRect(x: 0, y: 0, width: 200, height: 125)
             }, completion: nil)
         }
     }
@@ -71,8 +73,8 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.dimView.alpha = 0
-            self.collectionView.frame = CGRect(x: -200, y: 100, width: 200, height: 2000)
-            self.logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 100)
+            self.collectionView.frame = CGRect(x: -200, y: 125, width: 200, height: 2000)
+            self.logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 125)
         })
     }
     
