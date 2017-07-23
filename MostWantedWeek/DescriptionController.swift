@@ -53,6 +53,9 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
                                     let subdictionary = dictionary[name]
                                     let descriptionobj = Description()
                                     descriptionobj.descriptionText = subdictionary?["description"] as? String
+                                    descriptionobj.headerImage = subdictionary?["headerimage"] as? String
+                                    descriptionobj.headerLabel = subdictionary?["headerlabel"] as? String
+                                    
                                     self.descriptionObjs?.append(descriptionobj)
                                 }
                             }
@@ -76,7 +79,7 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! DescriptionHeader
-        header.tab = tab
+        header.descriptionHeader = descriptionObjs?[indexPath.item]
         return header
     }
     
@@ -99,12 +102,12 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
 
 class DescriptionHeader: BaseCell{
 
-    var tab: MenuTab?{
+    var descriptionHeader: Description?{
         didSet{
-            if let imageName = tab?.tabImageName {
+            if let imageName = descriptionHeader?.headerImage {
                  headerImage.image = UIImage(named: imageName)
             }
-            headerLabel.text = tab?.tabLabelName
+            headerLabel.text = descriptionHeader?.headerLabel
         }
     }
     
