@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsController: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
     
@@ -83,7 +83,7 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SettingsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SideMenuCells
 
         cell.menuTab = menuTabObjs[indexPath.item]
         
@@ -115,6 +115,6 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(SideMenuCells.self, forCellWithReuseIdentifier: cellId)
     }
 }

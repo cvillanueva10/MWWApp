@@ -109,6 +109,16 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         return error
     }()
     
+    lazy var returnHomeLabelView: UILabel = {
+        let label = UILabel()
+        label.text = "Home"
+        label.textColor = .white
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleReturnHome)))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     var selectedOrg: String?
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
     var nameTextFieldHeightAnchor: NSLayoutConstraint?
@@ -127,14 +137,29 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         orgPickerView.dataSource = self
         orgPickerView.delegate = self
         
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
+        handleEndEditing()
         
+        setupReturnHomeLabelView()
         setupInputContainersView()
         setupRegisterLoginButtonView()
         setupLogoImageView()
         setupLoginRegisterSegmentedControl()
+    }
+    
+    func handleEndEditing(){
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    func setupReturnHomeLabelView(){
+        view.addSubview(returnHomeLabelView)
+        returnHomeLabelView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
+        returnHomeLabelView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        returnHomeLabelView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        returnHomeLabelView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+    }
+    func handleReturnHome(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     func handleLoginRegisterChange(){
@@ -180,8 +205,24 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? handleLogin() : handleRegister()
     }
     
+    let profileController = ProfileController()
+    
     func handleLogin(){
-        print(123)
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            
+            if error != nil {
+                self.errorDisplayView.text = "Invalid email or password"
+                self.displayErrorView()
+                return
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.pushViewController(self.profileController, animated: true)
+        }
     }
     
     func handleRegister(){
@@ -233,6 +274,9 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
                     return
                 }
                 print("Successfully created user in database")
+                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.pushViewController(self.profileController, animated: true)
+
             })
         }
     }

@@ -21,8 +21,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return menu
     }()
     
-    lazy var settingsController: SettingsController = {
-        let controller = SettingsController()
+    lazy var menuController: MenuController = {
+        let controller = MenuController()
         controller.homeController = self
         return controller
     }()
@@ -83,13 +83,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func menuHandler(){
-        settingsController.showSettings()
+        menuController.showSettings()
     }
     
     func showControllerForMenuTab(menutab: MenuTab){
-        let layout = UICollectionViewFlowLayout() 
+        let layout = UICollectionViewFlowLayout()
         let descriptionController = DescriptionController(collectionViewLayout: layout)
         let loginController = LoginController()
+        let profileController = ProfileController()
         descriptionController.navigationItem.title = menutab.tabLabelName
         navigationController?.navigationBar.titleTextAttributes =
             [NSForegroundColorAttributeName: UIColor.white]
@@ -101,7 +102,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navigationController?.pushViewController(descriptionController, animated: true)
             }
         else if (menutab.tabLabelName == "Profile"){
-            navigationController?.pushViewController(loginController, animated: true)
+            if Auth.auth().currentUser?.uid == nil {
+                 present(loginController, animated: true, completion: nil)
+            }
+            else {
+                navigationController?.pushViewController(profileController, animated: true)
+            }
         }
     }
     

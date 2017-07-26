@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsCell: BaseCell {
+class SideMenuCells: BaseCell {
     
     override var isHighlighted: Bool{
         didSet{
