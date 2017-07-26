@@ -31,6 +31,7 @@
 		568C8AB11F215A7D00DD1466 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 568C8AB01F215A7D00DD1466 /* GoogleService-Info.plist */; };
 		568C8AB31F22FDA900DD1466 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB21F22FDA900DD1466 /* LoginController.swift */; };
 		568C8AB51F24609500DD1466 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB41F24609500DD1466 /* Description.swift */; };
+		568C8AB81F24BC2200DD1466 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB71F24BC2200DD1466 /* ApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +59,9 @@
 		567959771F1EFD9A00FFDAE2 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		567959791F1FD37C00FFDAE2 /* DescriptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionController.swift; sourceTree = "<group>"; };
 		568C8AB01F215A7D00DD1466 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		568C8AB21F22FDA900DD1466 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		568C8AB21F22FDA900DD1466 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		568C8AB41F24609500DD1466 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		568C8AB71F24BC2200DD1466 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		CDA686C9E5B5933ECD2FBE53 /* Pods_MostWantedWeek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MostWantedWeek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E1A5957DED6A42B7F82E9C /* Pods-MostWantedWeek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MostWantedWeek.release.xcconfig"; path = "Pods/Target Support Files/Pods-MostWantedWeek/Pods-MostWantedWeek.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,8 +99,9 @@
 		567431C61F0B2AEA00BFC839 /* MostWantedWeek */ = {
 			isa = PBXGroup;
 			children = (
-				567431E21F12E48900BFC839 /* Model */,
 				567431C71F0B2AEA00BFC839 /* AppDelegate.swift */,
+				568C8AB61F24BC0600DD1466 /* ApiService */,
+				567431E21F12E48900BFC839 /* Model */,
 				567431DC1F0DCE7100BFC839 /* Views */,
 				567431DF1F0DCEFD00BFC839 /* Controllers */,
 				567431D91F0DCD9D00BFC839 /* HelperFunctions */,
@@ -163,6 +166,14 @@
 				5679596F1F1EA5F400FFDAE2 /* LeftCell.swift */,
 			);
 			name = MenuBarCells;
+			sourceTree = "<group>";
+		};
+		568C8AB61F24BC0600DD1466 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				568C8AB71F24BC2200DD1466 /* ApiService.swift */,
+			);
+			name = ApiService;
 			sourceTree = "<group>";
 		};
 		85C0503609FAFBE2BAD000F7 /* Pods */ = {
@@ -313,6 +324,7 @@
 				5679595D1F133E6200FFDAE2 /* SettingsController.swift in Sources */,
 				567431E41F12E4AF00BFC839 /* Announcement.swift in Sources */,
 				567959701F1EA5F400FFDAE2 /* LeftCell.swift in Sources */,
+				568C8AB81F24BC2200DD1466 /* ApiService.swift in Sources */,
 				567431DE1F0DCE8700BFC839 /* AnnouncementCell.swift in Sources */,
 				567431CA1F0B2AEA00BFC839 /* HomeController.swift in Sources */,
 				567431E61F12E4D400BFC839 /* Profile.swift in Sources */,

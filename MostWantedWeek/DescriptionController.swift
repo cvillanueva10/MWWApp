@@ -27,46 +27,16 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchInfo()
-        
+        fetchDescriptions()
         setupCollectionView()
     }
     
-    func fetchInfo(){
-        let tabName = tab?.tabLabelName
-        let url = URL(string: "file:///Users/christophervillanueva/Desktop/description_info.json")
-                URLSession.shared.dataTask(with: url!) { (data, response, error) in
-        
-                    if error != nil {
-                        print(error!)
-                        return
-                    }
-                    
-                    DispatchQueue.main.async(execute: { 
-                        do{
-                            let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                            self.descriptionObjs = [Description]()
-//
-                            
-                            for dictionary in json as! [[String: AnyObject]] {
-                                if let name = tabName{
-                                    let subdictionary = dictionary[name]
-                                    let descriptionobj = Description()
-                                    descriptionobj.descriptionText = subdictionary?["description"] as? String
-                                    descriptionobj.headerImage = subdictionary?["headerimage"] as? String
-                                    descriptionobj.headerLabel = subdictionary?["headerlabel"] as? String
-                                    
-                                    self.descriptionObjs?.append(descriptionobj)
-                                }
-                            }
-                            
-                            self.collectionView?.reloadData()
-                            
-                        } catch let jsonError{
-                            print(jsonError)
-                        }
-                    })
-        }.resume()
+    func fetchDescriptions(){
+            let tabName = tab?.tabLabelName
+            ApiService.sharedInstance.fetchDescriptions(tabName: tabName!){ (descriptionObjs) in
+            self.descriptionObjs = descriptionObjs
+            self.collectionView?.reloadData()
+        }
     }
     
     func setupCollectionView(){
@@ -101,13 +71,13 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
 }
 
 class DescriptionHeader: BaseCell{
-
+    
     var descriptionHeader: Description?{
         didSet{
             if let imageName = descriptionHeader?.headerImage {
-                 headerImage.image = UIImage(named: imageName)
+                self.headerImage.image = UIImage(named: imageName)
             }
-            headerLabel.text = descriptionHeader?.headerLabel
+            self.headerLabel.text = descriptionHeader?.headerLabel
         }
     }
     
@@ -126,7 +96,7 @@ class DescriptionHeader: BaseCell{
         label.textAlignment = .center
         return label
     }()
-
+    
     override func setupViews() {
         super.setupViews()
         addSubview(headerImage)
@@ -142,7 +112,7 @@ class DescriptionBody: BaseCell {
     
     var descriptionBody: Description? {
         didSet{
-            descriptionTextView.text = descriptionBody?.descriptionText
+            self.descriptionTextView.text = descriptionBody?.descriptionText
         }
     }
     
@@ -168,7 +138,6 @@ class DescriptionBody: BaseCell {
         addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: descriptionTextView)
         addConstraintsWithFormat(format: "H:|-20-[v0]-20-|", views: thumbnailImageView)
         addConstraintsWithFormat(format: "V:|-10-[v0(320)]-10-[v1(\(frame.width / 2))]", views: descriptionTextView, thumbnailImageView)
-        
-        backgroundColor = .blue
+   
     }
 }

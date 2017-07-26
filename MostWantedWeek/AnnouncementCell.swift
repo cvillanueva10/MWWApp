@@ -38,6 +38,7 @@ class AnnouncementCell: BaseCell{
     
     let announcementTextView: UITextView = {
         let textView = UITextView()
+        textView.isEditable = false
         return textView
     }()
     
@@ -64,7 +65,7 @@ class AnnouncementCell: BaseCell{
     
     let Subtext: UITextView = {
         let text = UITextView()
-        //text.backgroundColor = UIColor.purple
+        text.isEditable = false
         text.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0)
         text.translatesAutoresizingMaskIntoConstraints = false
         return text

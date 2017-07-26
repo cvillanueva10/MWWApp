@@ -37,7 +37,7 @@ class SettingsController: NSObject, UICollectionViewDataSource, UICollectionView
         var scTab = MenuTab(logoName: "star", labelName: "Star and Crescent", imageName: "")
         var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "")
         var shirtTab = MenuTab(logoName: "shirt", labelName: "Shirt Orders", imageName: "")
-        var profileTab = MenuTab(logoName: "profile", labelName: "Profile", imageName: "")
+        var profileTab = MenuTab(logoName: "user_profile", labelName: "Profile", imageName: "")
        // var settingsTab = MenuTab(logoName: " ", labelName: "Settings")
         
         return [aboutTab, moneyTab, tieTab, scTab, brosTab, shirtTab, profileTab]

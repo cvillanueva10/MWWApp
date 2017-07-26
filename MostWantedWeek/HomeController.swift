@@ -96,7 +96,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.tintColor = .white
         
-        if(menutab.tabLabelName == "About MWW" || menutab.tabLabelName == "Penny Wars" || menutab.tabLabelName == "Charm-A-Sig" || menutab.tabLabelName == "Meet the Bros"){
+        if(menutab.tabLabelName == "About MWW" || menutab.tabLabelName == "Penny Wars" || menutab.tabLabelName == "Charm-A-Sig" || menutab.tabLabelName == "Star and Crescent"){
             descriptionController.tab = menutab
             navigationController?.pushViewController(descriptionController, animated: true)
             }

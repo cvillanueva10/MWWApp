@@ -20,7 +20,7 @@ class EventCell: BaseCell {
     let eventDetails: UITextView = {
         let details = UITextView()
         details.text = "Thursday 7pm - 10pm, Gym"
-       // details.backgroundColor = .purple
+        details.isEditable = false
         details.textContainerInset = UIEdgeInsetsMake(0, -5, 0, 0)
         details.translatesAutoresizingMaskIntoConstraints = false
         return details
@@ -29,7 +29,7 @@ class EventCell: BaseCell {
     let eventDescription: UITextView = {
         let description = UITextView()
         description.text = "Each sorority participating in MWW will have the chance to win points through our annual volleyball tournament!"
-        //description.backgroundColor = .blue
+        description.isEditable = false
         description.translatesAutoresizingMaskIntoConstraints = false
         return description
     }()
