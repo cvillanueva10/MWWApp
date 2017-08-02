@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    
     let cellId = "cellId"
     
     lazy var collectionView: UICollectionView = {
@@ -21,82 +22,65 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         return cv
     }()
     
-//    var announcementObjs: [Announcement]?
-//    var profileObjs: [Profile]?
-    
-    var announcementObjs: [Announcement] = {
-        var chrisProfile = Profile(profileImageName: "ChrisProfilePic", profileName: "Chris Villanueva")
-        var nhungProfile = Profile(profileImageName: "NhungProfilePic", profileName: "Nhung Nguyen")
-        var leoProfile = Profile(profileImageName: "LeoProfilePic",profileName: "Leo" )
-        var nhungAnnouncement = Announcement(text: "Test", timeStamp: "Sunday, July 9, 2017 at 3:59pm", profile: nhungProfile)
-        var leoAnnouncement = Announcement(text: "Test #3", timeStamp: "Sunday, July 9, 2017 at 4:00pm", profile: leoProfile)
-        var chrisAnnouncement = Announcement(text: "Test #2",timeStamp: "Sunday, July 9, 2017 at 4:01pm", profile: chrisProfile )
-        var chrisTestAnnouncement = Announcement(text: "Test",timeStamp: "Sunday, July 9, 2017 at 3:40pm", profile: chrisProfile )
-        
-        return [chrisTestAnnouncement, nhungAnnouncement, leoAnnouncement, chrisAnnouncement]
-    }()
-  
-//    func fetchAnnouncements(){
-//        
-//        let url = URL(string: "file:///Users/christophervillanueva/Desktop/test_announcements.json")
-//        URLSession.shared.dataTask(with: url!) { (data, response, error) in
-//            
-//            if error != nil {
-//                print(error!)
-//                return
-//            }
-//            
-//            
-//            DispatchQueue.main.async(execute: {
-//                
-//            })
-//            
-//            do{
-//                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-//                
-//                self.announcementObjs = [Announcement]()
-//                self.profileObjs = [Profile]()
-//                
-//                for dictionary in json as! [[String: AnyObject]] {
-////                
-//                   let profile = Profile()
-//                   let announcementObj = Announcement()
-//                   let pDictionary = dictionary["profile"]
-//                    
-//                    profile.profileName = pDictionary?["profile_name"] as? String
-////                    profile.profileImageName = dictionary["profile_image_name"] as? String
-//                    
-//                    announcementObj.profile = profile
-//                    announcementObj.text = dictionary["text"] as? String
-//                    announcementObj.timeStamp = dictionary["timestamp"] as? String
-//                    
-//                    self.profileObjs?.append(profile)
-//                    self.announcementObjs?.append(announcementObj)
-//
-//                    
-//                }
-//                
-//                
-//                self.collectionView.reloadData()
-//          
-//            } catch let jsonError{
-//                print(jsonError)
-//            }
-//            
-//        }.resume()
-//    }
-    
     override func setupViews() {
         super.setupViews()
         
-//        fetchAnnouncements()
-        
-        backgroundColor = .brown
+        observeAnnouncements()
+
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
         
         collectionView.register(AnnouncementCell.self, forCellWithReuseIdentifier: cellId)
+    }
+    
+    var announcementObjs = [Announcement]()
+    
+//    func updateNumOfLikes(childRef: String, value: Int){
+//        
+//        Database.database().reference(fromURL: childRef).observeSingleEvent(of: .value, with: { (snapshot) in
+//            
+//            if let dictionary = snapshot.value as? [String: Any]{
+//                let currentLikes = dictionary["numOfLikes"] as! Int
+//                let updatedLikes = currentLikes + value
+//                
+//                Database.database().reference(fromURL: childRef).updateChildValues(["numOfLikes": updatedLikes])
+//            }
+//            
+//        })
+// 
+//    }
+//    
+    func observeAnnouncements(){
+        
+        let ref = Database.database().reference().child("announcements")
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: Any] {
+                let announcement = Announcement()
+                announcement.setValuesForKeys(dictionary)
+                
+                if let uid = announcement.fromId{
+                    Database.database().reference().child("users").child(uid).observe(.value, with: { (snapshot) in
+                        
+                        if let dictionary = snapshot.value as? [String: AnyObject] {
+                            announcement.name = dictionary["name"] as? String
+                            announcement.profileImageUrl = dictionary["profileImageUrl"] as? String
+                        }
+                        
+                        self.announcementObjs.append(announcement)
+                        self.announcementObjs.sort(by: { (announcement1, announcement2) -> Bool in
+                            return (announcement1.timeStamp?.intValue)! > (announcement2.timeStamp?.intValue)!
+                        })
+                        
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                        
+                    }, withCancel: nil)
+                }
+            }
+        }, withCancel: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -105,11 +89,20 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AnnouncementCell
+        cell.centerCell = self
         cell.announcement = announcementObjs[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if let announcementText = announcementObjs[indexPath.item].text{
+            
+            let rect = NSString(string: announcementText).boundingRect(with: CGSize(width: frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+            let knownHeight: CGFloat = 16 + 44 + 8 + 16 + 1
+            
+            return CGSize(width: frame.width, height: rect.height + knownHeight + 60)
+        }
         return CGSize(width: frame.width, height: 200)
     }
     

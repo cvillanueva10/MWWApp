@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-let databaseUrl = "https://mostwantedweek-e840a.firebaseio.com/"
+let descriptionUrl = "https://firebasestorage.googleapis.com/v0/b/mostwantedweek-e840a.appspot.com/o/description_info.json?alt=media&token=2511c533-05c3-4874-ae03-081ec296d0a7"
 
 class DescriptionController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
@@ -33,7 +33,7 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     
     func fetchDescriptions(){
             let tabName = tab?.tabLabelName
-            ApiService.sharedInstance.fetchDescriptions(tabName: tabName!){ (descriptionObjs) in
+        ApiService.sharedInstance.fetchDescriptions(tabName: tabName!, url: descriptionUrl){ (descriptionObjs) in
             self.descriptionObjs = descriptionObjs
             self.collectionView?.reloadData()
         }
@@ -43,12 +43,12 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
         
-        collectionView?.register(DescriptionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView?.register(PageHeaderCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView?.register(DescriptionBody.self, forCellWithReuseIdentifier: bodyId)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! DescriptionHeader
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PageHeaderCell
         header.descriptionHeader = descriptionObjs?[indexPath.item]
         return header
     }
@@ -70,43 +70,6 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     }
 }
 
-class DescriptionHeader: BaseCell{
-    
-    var descriptionHeader: Description?{
-        didSet{
-            if let imageName = descriptionHeader?.headerImage {
-                self.headerImage.image = UIImage(named: imageName)
-            }
-            self.headerLabel.text = descriptionHeader?.headerLabel
-        }
-    }
-    
-    let headerImage: UIImageView = {
-        let image = UIImageView()
-        image.backgroundColor = .green
-        image.contentMode = .scaleAspectFill
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.masksToBounds = true
-        return image
-    }()
-    
-    let headerLabel : UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 40)
-        label.textAlignment = .center
-        return label
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        addSubview(headerImage)
-        addSubview(headerLabel)
-        
-        addConstraintsWithFormat(format: "H:|[v0]|", views: headerImage)
-        addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: headerLabel)
-        addConstraintsWithFormat(format: "V:|[v0(\(frame.height * 0.8))]-[v1(\(frame.height*0.2))]", views: headerImage, headerLabel)
-    }
-}
 
 class DescriptionBody: BaseCell {
     

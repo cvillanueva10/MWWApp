@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         FirebaseApp.configure()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
@@ -26,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         
         UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
         application.statusBarStyle = .lightContent
         let statusBarBackgroundView = UIView()

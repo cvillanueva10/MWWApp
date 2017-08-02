@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class LowerMenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     let cellId = "cellId"
     let iconNames = ["scoreboard", "announcements", "schedule"]
@@ -19,7 +19,9 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 13, green: 140, blue: 12)
+        cv.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
+        cv.layer.borderColor = UIColor.rgb(red: 200, green: 200, blue: 200).cgColor
+        cv.layer.borderWidth = 0.5
         cv.delegate = self
         cv.dataSource = self
         return cv
@@ -42,7 +44,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
-        horizontalBarView.backgroundColor = UIColor.white
+        horizontalBarView.backgroundColor = UIColor.rgb(red: 200, green: 13, blue: 12)
         horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(horizontalBarView)
         
@@ -53,7 +55,6 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         horizontalBarView.heightAnchor.constraint(greaterThanOrEqualToConstant: 5).isActive = true
     }
    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
@@ -62,7 +63,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
             for: indexPath) as! MenuCell
         cell.imageView.image = UIImage(named: iconNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = UIColor.rgb(red: 13, green: 70, blue: 12)
+        cell.tintColor = UIColor.rgb(red: 160, green: 160, blue: 160)
         
         return cell
     }
@@ -94,7 +95,7 @@ class MenuCell: BaseCell {
     
     override var isSelected: Bool{
         didSet{
-            imageView.tintColor = isSelected ? .white : UIColor.rgb(red: 13, green: 70, blue: 12)
+            imageView.tintColor = isSelected ? UIColor.rgb(red: 200, green: 13, blue: 12) : UIColor.rgb(red: 160, green: 160, blue: 160)
         }
     }
     
@@ -103,8 +104,8 @@ class MenuCell: BaseCell {
         
         addSubview(imageView)
         
-        addConstraintsWithFormat(format: "H:[v0(60)]", views: imageView)
-        addConstraintsWithFormat(format: "V:[v0(60)]", views: imageView)
+        addConstraintsWithFormat(format: "H:[v0(50)]", views: imageView)
+        addConstraintsWithFormat(format: "V:[v0(50)]", views: imageView)
         
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))

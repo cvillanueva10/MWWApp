@@ -11,13 +11,12 @@ import UIKit
 class Announcement: NSObject {
     
     var text: String?
-    var timeStamp: String?
-    
-    var profile: Profile?
-    
-    init(text: String, timeStamp: String, profile: Profile){
-        self.text = text
-        self.timeStamp = timeStamp
-        self.profile = profile
-    }
+    var timeFormatted: String?
+    var timeStamp: NSNumber?
+    var fromId: String?
+    var numOfLikes: NSNumber?
+    var name: String?
+    var profileImageUrl: String?
+    var childRef: String?
+    var isLiked: Bool?
 }

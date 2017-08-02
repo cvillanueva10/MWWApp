@@ -10,11 +10,9 @@ import UIKit
 
 class Profile: NSObject {
     
-    var profileImageName: String?
+    var profileImageUrl: String?
     var profileName: String?
+    var organization: String?
     
-    init (profileImageName: String, profileName: String){
-        self.profileImageName = profileImageName
-        self.profileName = profileName
-    }
+    
 }

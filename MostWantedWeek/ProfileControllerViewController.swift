@@ -13,18 +13,18 @@ class ProfileController: UIViewController {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .white
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.layer.borderWidth = 1
         imageView.layer.cornerRadius = 75
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     let profileUserNameLabel: UILabel = {
         let label = UILabel()
-        //label.backgroundColor = .blue
+        label.font = UIFont.systemFont(ofSize: 40)
         label.textAlignment = .center
         label.layer.masksToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,8 +33,8 @@ class ProfileController: UIViewController {
     
     let organizationNameLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 24)
         label.textAlignment = .center
-        label.backgroundColor = .red
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,12 +43,16 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         navigationItem.title = "Profile"
          navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
          view.backgroundColor = .white
         
-        checkIfUserIsLoggedIn()
-        setupView()
+         setupView()
        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkIfUserIsLoggedIn()
     }
     
     func setupView() {
@@ -61,13 +65,13 @@ class ProfileController: UIViewController {
         
         view.addSubview(profileUserNameLabel)
         profileUserNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileUserNameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20).isActive = true
+        profileUserNameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 15).isActive = true
         profileUserNameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         profileUserNameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(organizationNameLabel)
         organizationNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        organizationNameLabel.topAnchor.constraint(equalTo: profileUserNameLabel.bottomAnchor, constant: 10).isActive = true
+        organizationNameLabel.topAnchor.constraint(equalTo: profileUserNameLabel.bottomAnchor, constant: -10).isActive = true
         organizationNameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
         organizationNameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -77,11 +81,18 @@ class ProfileController: UIViewController {
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
+            guard let uid = Auth.auth().currentUser?.uid else {
+                return
+            }
+            Database.database().reference().child("users").child(uid).observe(.value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     self.profileUserNameLabel.text = dictionary["name"] as? String
+                    self.organizationNameLabel.text = dictionary["organization"] as? String
+                    
+                    if let profileImageUrl = dictionary["profileImageUrl"] as? String{
+                        self.profileImageView.loadImageUsingCacheWithURL(url: profileImageUrl)
+                    }
                 }
             }, withCancel: nil)
         }
@@ -94,8 +105,9 @@ class ProfileController: UIViewController {
             print(logoutError)
         }
         
-        //let loginController = LoginController()
+        profileUserNameLabel.text = ""
+        organizationNameLabel.text = ""
+
         navigationController?.popViewController(animated: true)
-        //self.present(loginController, animated: true, completion: nil)
     }
 }

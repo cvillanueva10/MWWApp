@@ -76,12 +76,16 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         return line
     }()
     
-    let logoImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let image = UIImageView()
+        image.image = UIImage(named: "user_profile")
         image.backgroundColor = .white
         image.layer.cornerRadius = 60
         image.layer.masksToBounds = true
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage)))
+        image.isUserInteractionEnabled = true
         return image
     }()
     
@@ -119,6 +123,8 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         return label
     }()
     
+    let profileController = ProfileController()
+    
     var selectedOrg: String?
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
     var nameTextFieldHeightAnchor: NSLayoutConstraint?
@@ -145,12 +151,6 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         setupLogoImageView()
         setupLoginRegisterSegmentedControl()
     }
-    
-    func handleEndEditing(){
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
     func setupReturnHomeLabelView(){
         view.addSubview(returnHomeLabelView)
         returnHomeLabelView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
@@ -158,31 +158,7 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         returnHomeLabelView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         returnHomeLabelView.heightAnchor.constraint(equalToConstant: 25).isActive = true
     }
-    func handleReturnHome(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func handleLoginRegisterChange(){
-        let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
-        registerLoginButton.setTitle(title, for: .normal)
-        
-        //Change height of container
-        inputsContainerViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 200
-        nameTextFieldHeightAnchor?.isActive = false
-        nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0: 1/4)
-        nameTextFieldHeightAnchor?.isActive = true
-        nameTextField.isHidden = loginRegisterSegmentedControl.selectedSegmentIndex == 0
-        orgPickerViewHeightAnchor?.isActive = false
-        orgPickerViewHeightAnchor = orgPickerView.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0: 1/4)
-        orgPickerViewHeightAnchor?.isActive = true
-        emailTextFieldHeightAnchor?.isActive = false
-        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2: 1/4)
-        emailTextFieldHeightAnchor?.isActive = true
-        passwordTextFieldHeightAnchor?.isActive = false
-        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2: 1/4)
-        passwordTextFieldHeightAnchor?.isActive = true
-    }
-    
+   
     func setupLoginRegisterSegmentedControl(){
         view.addSubview(loginRegisterSegmentedControl)
         
@@ -201,86 +177,8 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         errorDisplayView.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
-    func handleLoginRegister(){
-        loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? handleLogin() : handleRegister()
-    }
-    
-    let profileController = ProfileController()
-    
-    func handleLogin(){
-        
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
-            return
-        }
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            
-            if error != nil {
-                self.errorDisplayView.text = "Invalid email or password"
-                self.displayErrorView()
-                return
-            }
-            
-            self.dismiss(animated: true, completion: nil)
-            self.navigationController?.pushViewController(self.profileController, animated: true)
-        }
-    }
-    
-    func handleRegister(){
-        
-        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text else {
-            errorDisplayView.text = "Form is not valid"
-            displayErrorView()
-            return
-        }
-        
-        guard let org = selectedOrg else {
-            errorDisplayView.text = "Please Select an Organization"
-            displayErrorView()
-            return
-        }
-        
-        if name == "" {
-            self.errorDisplayView.text = "Please enter your name"
-            self.displayErrorView()
-            return
-        }
-        
-        if email == "" {
-            self.errorDisplayView.text = "Please enter a valid email"
-            self.displayErrorView()
-            return
-        }
-
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error != nil{
-                self.errorDisplayView.text = error!.localizedDescription
-                self.displayErrorView()
-                print(error!)
-                
-                return
-            }
-            guard let uid = user?.uid else{
-                return
-            }
-            let ref = Database.database().reference(fromURL: "https://mostwantedweek-e840a.firebaseio.com/")
-            let usersRef = ref.child("users").child(uid)
-            let values = ["name": name, "email": email, "organization" : org]
-            
-            usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                
-                if err != nil {
-                    print(err!)
-                    return
-                }
-                print("Successfully created user in database")
-                self.dismiss(animated: true, completion: nil)
-                self.navigationController?.pushViewController(self.profileController, animated: true)
-
-            })
-        }
-    }
-    
+   
+   
     func setupInputContainersView(){
         view.addSubview(inputsContainerView)
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -349,11 +247,11 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func setupLogoImageView(){
-        view.addSubview(logoImageView)
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -60).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 125).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
+        view.addSubview(profileImageView)
+        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -60).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 125).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
