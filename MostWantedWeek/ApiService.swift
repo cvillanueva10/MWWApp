@@ -10,9 +10,11 @@ import UIKit
 
 
 let descriptionCache = NSCache<AnyObject, AnyObject>()
+
 class ApiService: NSObject {
     
     static let sharedInstance = ApiService()
+    
     func fetchDescriptions(tabName: String, url: String, completion: @escaping ([Description]) -> ()){
         let url = URL(string: url)
         
@@ -56,6 +58,5 @@ class ApiService: NSObject {
             descriptionObjs.append(descriptionobj)
         }
         return descriptionObjs
-        
     }
 }
