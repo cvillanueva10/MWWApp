@@ -56,10 +56,10 @@ class SideMenuCells: BaseCell {
         addSubview(tabIcon)
         addSubview(separatorLine)
         
-        addConstraintsWithFormat(format: "H:|-8-[v0(35)]-8-[v1]|", views: tabIcon, tabLabel)
+        addConstraintsWithFormat(format: "H:|-8-[v0(\(frame.width * 0.2))]-8-[v1]|", views: tabIcon, tabLabel)
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorLine )
         
-        addConstraintsWithFormat(format: "V:[v0(35)]-8-[v1(1)]", views: tabIcon, separatorLine)
+        addConstraintsWithFormat(format: "V:[v0(\(frame.width * 0.2))]-8-[v1(1)]", views: tabIcon, separatorLine)
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-|", views: tabLabel)
         
         addConstraint(NSLayoutConstraint(item: tabIcon, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))

@@ -34,11 +34,10 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         var aboutTab = MenuTab(logoName: "about", labelName: "About MWW", imageName: "mww_group")
         var moneyTab = MenuTab(logoName: "money", labelName: "Penny Wars", imageName: "")
         var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig", imageName: "")
-        var scTab = MenuTab(logoName: "star", labelName: "Star and Crescent", imageName: "")
+        var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "")
         var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "")
         var shirtTab = MenuTab(logoName: "shirt", labelName: "Shirt Orders", imageName: "")
         var profileTab = MenuTab(logoName: "user_profile", labelName: "Profile", imageName: "")
-       // var settingsTab = MenuTab(logoName: " ", labelName: "Settings")
         
         return [aboutTab, moneyTab, tieTab, scTab, brosTab, shirtTab, profileTab]
     }()
@@ -56,7 +55,7 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
             window.addSubview(collectionView)
             window.addSubview(logoView)
             
-            let width = window.frame.width * 0.5
+            let width = window.frame.width * 0.7
            
             collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
             logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
@@ -75,7 +74,7 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         
         if let window = UIApplication.shared.keyWindow{
             
-            let width = window.frame.width * 0.5
+            let width = window.frame.width * 0.7
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.dimView.alpha = 0
@@ -101,7 +100,7 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let window = UIApplication.shared.keyWindow{
-            return CGSize(width: window.frame.width * 0.5 , height: 60)
+            return CGSize(width: window.frame.width * 0.7 , height: 75)
         }
         return CGSize(width: 200, height: 60)
     }
@@ -114,7 +113,7 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         
         if let window = UIApplication.shared.keyWindow{
 
-            let width = window.frame.width
+            let width = window.frame.width * 0.7
             
             self.dimView.alpha = 0
             self.collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)

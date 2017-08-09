@@ -13,7 +13,7 @@ class MenuTab: NSObject {
     var tabLogoName: String
     var tabLabelName: String
     var tabImageName: String
-    var tabLabelFont = UIFont.boldSystemFont(ofSize: 15)
+    var tabLabelFont = UIFont.boldSystemFont(ofSize: 18)
     
     init(logoName: String, labelName: String, imageName: String) {
         self.tabLogoName = logoName

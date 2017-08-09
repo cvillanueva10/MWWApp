@@ -40,14 +40,8 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
     let cellId = "cellId"
     
     let dates = ["Before MWW", "Monday, October 16", "Tuesday, October 17", "Wednesday, October 18", "Thursday, October 19", "Friday, October 20"]
-    let dateIds = ["Before", "M", "T", "WED", "THUR", "FRI"]
     
     let dimView = UIView()
-    
-    lazy var eventView: EventMainView = {
-        let view = EventMainView()
-        return view
-    }()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -74,45 +68,45 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
         
     }
     
-    func handleShowEvents(){
-        
-        addSubview(dimView)
-        addSubview(eventView)
-        
-        let eventViewHeight = frame.height * 0.75
-        eventView.frame = CGRect(x: 0, y: frame.height + eventViewHeight, width: frame.width, height: eventViewHeight)
-        
-        if let window = UIApplication.shared.keyWindow {
-            dimView.frame = window.frame
-        }
-        dimView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
-        dimView.alpha = 0
-        
-        dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-    
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
-            let eventViewHeight = self.frame.height * 0.75
-            
-            self.eventView.frame = CGRect(x: 0, y: self.frame.height - eventViewHeight, width: self.frame.width, height: eventViewHeight)
-            self.dimView.alpha = 1
-            
-        }, completion: nil)
-    }
-    
-    func handleDismiss() {
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
-            let eventViewHeight = self.frame.height * 0.75
-            
-            self.eventView.frame = CGRect(x: 0, y: self.frame.height + eventViewHeight, width: self.frame.width, height: eventViewHeight)
-            self.dimView.alpha = 0
-            
-        }, completion: nil)
-
-    }
+    //    func handleShowEvents(){
+    //
+    //        addSubview(dimView)
+    //        addSubview(eventView)
+    //
+    //        let eventViewHeight = frame.height * 0.75
+    //        eventView.frame = CGRect(x: 0, y: frame.height + eventViewHeight, width: frame.width, height: eventViewHeight)
+    //
+    //        if let window = UIApplication.shared.keyWindow {
+    //            dimView.frame = window.frame
+    //        }
+    //        dimView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
+    //        dimView.alpha = 0
+    //
+    //        dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+    //
+    //
+    //        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+    //
+    //            let eventViewHeight = self.frame.height * 0.75
+    //
+    //            self.eventView.frame = CGRect(x: 0, y: self.frame.height - eventViewHeight, width: self.frame.width, height: eventViewHeight)
+    //            self.dimView.alpha = 1
+    //
+    //        }, completion: nil)
+    //    }
+    //
+    //    func handleDismiss() {
+    //
+    //        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+    //
+    //            let eventViewHeight = self.frame.height * 0.75
+    //
+    //            self.eventView.frame = CGRect(x: 0, y: self.frame.height + eventViewHeight, width: self.frame.width, height: eventViewHeight)
+    //            self.dimView.alpha = 0
+    //
+    //        }, completion: nil)
+    //
+    //    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -122,17 +116,24 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DirectoryCell
         cell.dateLabel.text = dates[indexPath.item]
- //       cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleShowEvents)))
+        //       cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleShowEvents)))
         return cell
     }
     
-    let eventMainView = EventMainView()
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        handleShowEvents()
-        eventMainView.observeEvents(dateId: dateIds[indexPath.item])
-    
+        let layout = UICollectionViewFlowLayout()
+//        let eventMainView = EventMainView()
+        let eventCollectionView = EventCollectionView()
+        
+        
+        eventCollectionView.selectedDate = indexPath.item
+        eventCollectionView.showView()
+        
+        
+        //        handleShowEvents()
+        
+        //        eventMainView.observeEvents(dateId: dateIds[indexPath.item])
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
