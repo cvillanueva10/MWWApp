@@ -28,12 +28,12 @@ class EventMainView: UIView, UICollectionViewDataSource, UICollectionViewDelegat
         
         loadDataFromEachDay()
         setupCollectionView()
-
-       
+  
     }
     
     func loadDataFromEachDay(){
         observeEvents(dateId: "M")
+        observeEvents(dateId: "T")
 
     }
     
@@ -66,8 +66,10 @@ class EventMainView: UIView, UICollectionViewDataSource, UICollectionViewDelegat
 
                 DispatchQueue.main.async {
 
-                self.collectionView.reloadData()
+                    self.collectionView.reloadData()
                 }
+                
+
             }
         }, withCancel: nil)
     }

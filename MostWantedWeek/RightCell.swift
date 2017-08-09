@@ -132,6 +132,7 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
 
         handleShowEvents()
         eventMainView.observeEvents(dateId: dateIds[indexPath.item])
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
