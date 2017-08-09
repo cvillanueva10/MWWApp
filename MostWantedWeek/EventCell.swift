@@ -7,8 +7,102 @@
 //
 
 import UIKit
+import Firebase
 
-class EventCell: BaseCell {
+class EventMainView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .white
+        cv.dataSource = self
+        cv.delegate = self
+        return cv
+    }()
+    
+    let bodyId = "bodyId"
+    var dateId: String?
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        
+        loadDataFromEachDay()
+        setupCollectionView()
+
+       
+    }
+    
+    func loadDataFromEachDay(){
+        observeEvents(dateId: "M")
+
+    }
+    
+    func setupCollectionView(){
+        
+        addSubview(collectionView)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        collectionView.register(EventBodyCell.self, forCellWithReuseIdentifier: bodyId)
+    }
+    
+    var eventObjs = [Event]()
+    
+    func observeEvents(dateId: String){
+  
+        let ref = Database.database().reference().child("schedule").child(dateId)
+        
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            self.eventObjs.removeAll()
+            
+            if let dictionary = snapshot.value as? [String: Any] {
+                let event = Event()
+                event.setValuesForKeys(dictionary)
+                
+                self.eventObjs.append(event)
+                self.eventObjs.sort(by: { (e1, e2) -> Bool in
+                    (e1.orderNum?.intValue)! < (e2.orderNum?.intValue)!
+                })
+
+                DispatchQueue.main.async {
+
+                self.collectionView.reloadData()
+                }
+            }
+        }, withCancel: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! EventBodyCell
+        cell.event = eventObjs[indexPath.item]
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return eventObjs.count
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: frame.width, height: frame.height * 0.75)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+class EventHeaderCell: BaseCell {
+    
+    override func setupViews() {
+        backgroundColor = .red
+    }
+    
+}
+
+class EventBodyCell: BaseCell {
     
     var event: Event? {
         didSet{
@@ -26,7 +120,8 @@ class EventCell: BaseCell {
         date.layer.borderColor = UIColor.black.cgColor
         date.layer.borderWidth = 0.5
         date.textAlignment = .center
-        date.backgroundColor = UIColor.rgb(red: 210, green: 210, blue: 210)
+        date.backgroundColor = UIColor.rgb(red: 200, green: 31, blue: 32)
+        date.textColor = .white
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
     }()
@@ -37,7 +132,7 @@ class EventCell: BaseCell {
         name.textAlignment = .center
         name.layer.borderColor = UIColor.black.cgColor
         name.layer.borderWidth = 0.5
-        //name.backgroundColor = .orange
+        name.backgroundColor = .white
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
@@ -84,8 +179,11 @@ class EventCell: BaseCell {
         addConstraintsWithFormat(format: "H:|[v0]|", views: eventName)
         addConstraintsWithFormat(format: "H:[v0(\(frame.width/2))]|", views: eventTime)
         addConstraintsWithFormat(format: "H:|[v0]|", views: eventDescription)
-
-        addConstraintsWithFormat(format: "V:|[v0(40)]-0-[v1(40)]-0-[v2(30)]-0-[v3]|", views: eventDate, eventName, eventTime, eventDescription)
+        
+        let nameHeight = frame.height * 0.2
+        let timeLocationHeight = frame.height * 0.15
+        
+        addConstraintsWithFormat(format: "V:|[v0(\(nameHeight))]-0-[v1(\(timeLocationHeight))]-0-[v2]|", views: eventName, eventTime, eventDescription)
         
         addConstraint(NSLayoutConstraint(item: eventLocation, attribute: .left, relatedBy: .equal, toItem: eventName, attribute: .left, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: eventLocation, attribute: .top, relatedBy: .equal, toItem: eventTime, attribute: .top, multiplier: 1, constant: 0))

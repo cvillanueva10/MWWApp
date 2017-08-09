@@ -51,19 +51,29 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         let pageTitle = UILabel(frame: CGRect(x:0,y:0,width:100,height:100))
         pageTitle.text = "Most Wanted Week"
-        pageTitle.font = UIFont.systemFont(ofSize: 24)
+        pageTitle.font = UIFont.boldSystemFont(ofSize: 24)
         pageTitle.textColor = UIColor.white
         navigationItem.titleView = pageTitle
         
+        loadPageView()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadPageView()
+        
+        let initialIndex = IndexPath(item: 1, section: 0)
+        collectionView?.scrollToItem(at: initialIndex, at: .centeredHorizontally, animated: false)
+        
+    }
+    
+    func loadPageView(){
         setupCollectionView()
         setupUpperMenuBar()
         setupLowerMenuBar()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let initialIndex = IndexPath(item: 1, section: 0)
-        collectionView?.scrollToItem(at: initialIndex, at: .centeredHorizontally, animated: false)    }
     
     func setupCollectionView(){
         
@@ -71,14 +81,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             flowLayout.scrollDirection = .horizontal
             flowLayout.minimumLineSpacing = 0
         }
-        
-        collectionView?.backgroundColor = UIColor.init(white: 0.95, alpha: 1)
-        
+
+        collectionView?.backgroundColor = .white
         collectionView?.register(RightCell.self, forCellWithReuseIdentifier: rightCellId)
         collectionView?.register(CenterCell.self, forCellWithReuseIdentifier: centerCellId)
         collectionView?.register(LeftCell.self, forCellWithReuseIdentifier: leftCellId)
-        
-        //collectionView?.frame = CGRect(x: 0, y: 40, width: view.frame.width, height: view.frame.height)
         collectionView?.contentInset = UIEdgeInsetsMake(35, 0, 50, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(35, 0, 50, 0)
         collectionView?.isPagingEnabled = true
@@ -87,6 +94,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     private func setupUpperMenuBar(){
+        
+        upperMenuBar.setHeaderProfileImage()
+        
         view.addSubview(upperMenuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: upperMenuBar)
         view.addConstraintsWithFormat(format: "V:|[v0(35)]", views: upperMenuBar)
@@ -113,7 +123,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let newAnnouncementController = NewAnnouncementController()
             navigationController?.pushViewController(newAnnouncementController, animated: true)
         }
-       
+        
     }
     
     let profileController = ProfileController()

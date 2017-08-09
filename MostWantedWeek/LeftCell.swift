@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -21,25 +22,44 @@ class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         return cv
     }()
     
-    var scoreObjs: [Score] = {
-        var deltaGamma = Score(logoName: "DG", teamName: "Delta Gamma", scoreNum: "1029391")
-        var kappaGamma = Score(logoName: "KKG", teamName: "Kappa Kappa Gamma", scoreNum: "2040")
-        var phiMu = Score(logoName: "PM", teamName: "Phi Mu", scoreNum: "20194")
-        var triDelta = Score(logoName: "TD", teamName: "Tri Delta", scoreNum: "45912")
-        var kdChi = Score(logoName: "KDC", teamName: "Kappa Delta Chi", scoreNum: "504")
-        
-        return [deltaGamma, kappaGamma, phiMu, triDelta, kdChi]
-    }()
+    var scoreObjs = [Score]()
     
     override func setupViews() {
         super.setupViews()
         
-        backgroundColor = .brown
+        observeScore()
+
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
         
         collectionView.register(ScoreCell.self, forCellWithReuseIdentifier: cellId)
+    }
+    
+    func observeScore(){
+        
+        let ref = Database.database().reference().child("scoreboard")
+        ref.observe(.childAdded, with: { (snapshot) in
+
+            if let dictionary = snapshot.value as? [String: Any] {
+                let score = Score()
+                score.setValuesForKeys(dictionary)
+                
+                self.scoreObjs.append(score)
+                self.scoreObjs.sort(by: { (s1, s2) -> Bool in
+                    (s1.score?.intValue)! > (s2.score?.intValue)!
+                })
+                
+                for i in 0 ..< self.scoreObjs.count {
+                    self.scoreObjs[i].rank = i as NSNumber
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }, withCancel: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,11 +69,12 @@ class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ScoreCell
         cell.score = scoreObjs[indexPath.item]
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width, height: 100)
+        return CGSize(width: frame.width, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

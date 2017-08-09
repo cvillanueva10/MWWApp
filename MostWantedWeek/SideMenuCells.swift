@@ -24,20 +24,20 @@ class SideMenuCells: BaseCell {
             
            if let logoImageName = menuTab?.tabLogoName{
                 tabIcon.image = UIImage(named: logoImageName)?.withRenderingMode(.alwaysTemplate)
-                tabIcon.tintColor = UIColor.lightGray
+                tabIcon.tintColor = UIColor.rgb(red: 180, green: 180, blue: 180)
             }
         }
     }
     
     let tabLabel: UILabel = {
         let label = UILabel()
-        label.text = "Settings"
+        label.textColor = UIColor.rgb(red: 40, green: 40, blue: 40)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let tabIcon: UIImageView = {
-        let icon = UIImageView() 
-        icon.image = UIImage(named: "LeoProfilePic")
+        let icon = UIImageView()
         icon.contentMode = .scaleAspectFill
         icon.layer.masksToBounds = true;
         return icon

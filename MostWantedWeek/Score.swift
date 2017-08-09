@@ -10,13 +10,9 @@ import UIKit
 
 class Score: NSObject {
     
-    var logoName: String?
-    var teamName: String?
-    var scoreNum: String?
+    var logo: String?
+    var name: String?
+    var score: NSNumber?
+    var rank: NSNumber?
     
-    init(logoName: String, teamName: String, scoreNum: String){
-        self.logoName = logoName
-        self.teamName = teamName
-        self.scoreNum = scoreNum
-    }
 }

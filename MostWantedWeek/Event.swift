@@ -15,5 +15,6 @@ class Event: NSObject {
     var location: String?
     var time: String?
     var eventDescription: String?
+    var orderNum: NSNumber?
     
 }

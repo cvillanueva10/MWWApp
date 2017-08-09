@@ -54,7 +54,7 @@ class AnnouncementCell: BaseCell{
     
     let likesEditDeleteBarView: UIView = {
         let view = UIView()
-        //view.backgroundColor = .orange
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -76,6 +76,7 @@ class AnnouncementCell: BaseCell{
     
     let userName: UILabel = {
         let name = UILabel()
+        name.backgroundColor = .white
         name.font = UIFont.boldSystemFont(ofSize: 16)
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
@@ -83,6 +84,7 @@ class AnnouncementCell: BaseCell{
     
     let subtext: UITextView = {
         let text = UITextView()
+        text.backgroundColor = .white
         text.font = UIFont.systemFont(ofSize: 12)
         text.textColor = UIColor.rgb(red: 170, green: 170, blue: 170)
         text.isEditable = false
@@ -146,6 +148,7 @@ class AnnouncementCell: BaseCell{
     }
     
     override func setupViews(){
+        
         addSubview(announcementTextView)
         addSubview(profileImageView)
         addSubview(seperatorView)
@@ -170,7 +173,7 @@ class AnnouncementCell: BaseCell{
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: likesEditDeleteBarView)
         
         //Vertical
-        addConstraintsWithFormat(format: "V:|-16-[v0(44)]-8-[v1]-12-[v2(30)]-8-[v3(1)]|", views: profileImageView, announcementTextView, likesEditDeleteBarView, seperatorView)
+        addConstraintsWithFormat(format: "V:|-16-[v0(44)]-8-[v1]-12-[v2(30)]-8-[v3(10)]|", views: profileImageView, announcementTextView, likesEditDeleteBarView, seperatorView)
         
         //Height
         //addConstraint(NSLayoutConstraint(item: announcementTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: ))

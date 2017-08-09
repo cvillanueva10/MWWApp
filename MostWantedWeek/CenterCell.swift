@@ -25,6 +25,8 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
     override func setupViews() {
         super.setupViews()
         
+       
+        
         observeAnnouncements()
 
         addSubview(collectionView)

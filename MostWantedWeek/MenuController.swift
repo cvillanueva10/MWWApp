@@ -55,27 +55,36 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
             window.addSubview(dimView)
             window.addSubview(collectionView)
             window.addSubview(logoView)
+            
+            let width = window.frame.width * 0.5
            
-            collectionView.frame = CGRect(x: -200, y: 125, width: 200, height: window.frame.height - 125)
-            logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 125)
+            collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
+            logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
             
             dimView.frame = window.frame
             
-            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.dimView.alpha = 1
-                self.collectionView.frame = CGRect(x: 0, y: 125, width: 200, height: window.frame.height - 125)
-                self.logoView.frame = CGRect(x: 0, y: 0, width: 200, height: 125)
+                self.collectionView.frame = CGRect(x: 0, y: 150, width: width, height: window.frame.height - 150)
+                self.logoView.frame = CGRect(x: 0, y: 0, width: width, height: 150)
             }, completion: nil)
         }
     }
 
     func dismissHandler(menutab: MenuTab){
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.dimView.alpha = 0
-            self.collectionView.frame = CGRect(x: -200, y: 125, width: 200, height: 2000)
-            self.logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 125)
-        })
+        if let window = UIApplication.shared.keyWindow{
+            
+            let width = window.frame.width * 0.5
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.dimView.alpha = 0
+                self.collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
+                self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
+            })
+            
+        }
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,6 +100,9 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if let window = UIApplication.shared.keyWindow{
+            return CGSize(width: window.frame.width * 0.5 , height: 60)
+        }
         return CGSize(width: 200, height: 60)
     }
     
@@ -99,15 +111,23 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-        self.dimView.alpha = 0
-        self.collectionView.frame = CGRect(x: -200, y: 100, width: 200, height: 2000)
-        self.logoView.frame = CGRect(x: -200, y: 0, width: 200, height: 100)
-    }) {(completion: Bool) in
-    
-        let menutab = self.menuTabObjs[indexPath.item]
-        self.homeController?.showControllerForMenuTab(menutab: menutab)
+        
+        if let window = UIApplication.shared.keyWindow{
+
+            let width = window.frame.width
+            
+            self.dimView.alpha = 0
+            self.collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
+            self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
+        }
+        
+    }){(completion: Bool) in
+            
+            let menutab = self.menuTabObjs[indexPath.item]
+            self.homeController?.showControllerForMenuTab(menutab: menutab)
         }
     }
+    
 
     override init(){
         super.init()
