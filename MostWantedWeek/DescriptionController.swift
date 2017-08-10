@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-let descriptionUrl = "https://firebasestorage.googleapis.com/v0/b/mostwantedweek-e840a.appspot.com/o/description_info.json?alt=media&token=2511c533-05c3-4874-ae03-081ec296d0a7"
+let descriptionUrl = "https://firebasestorage.googleapis.com/v0/b/mostwantedweek-e840a.appspot.com/o/description_info.json?alt=media&token=d16013c2-4953-4cf6-b29c-b1c8789d4c31"
 
 class DescriptionController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     

@@ -45,7 +45,7 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
         
         if let window = UIApplication.shared.keyWindow {
             
-            let cvHeight = window.frame.height * 0.6
+            let cvHeight = window.frame.height * 0.7
             let windowHeight = window.frame.height
             let windowWidth = window.frame.width
             

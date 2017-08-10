@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 let descriptionCache = NSCache<AnyObject, AnyObject>()
 
 class ApiService: NSObject {
