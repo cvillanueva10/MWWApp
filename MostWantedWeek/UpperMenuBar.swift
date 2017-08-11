@@ -40,12 +40,14 @@ class UpperMenuBar: UIView {
         return label
     }()
     
-    let headerProfileImage: UIImageView = {
+    lazy var headerProfileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 15
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .white
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleShowProfile)))
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -99,9 +101,13 @@ class UpperMenuBar: UIView {
                     }
                 }
             }, withCancel: nil)
-            
-
         }
+    }
+    var homeController: HomeController?
+    
+    func handleShowProfile(){
+        
+        homeController?.showProfilePage()
     }
 
   

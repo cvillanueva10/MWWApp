@@ -39,20 +39,27 @@ class ProfileController: UIViewController {
         return label
     }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         navigationItem.title = "Profile"
-         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-         view.backgroundColor = .white
+        view.backgroundColor = .white
         
-         setupView()
-       
+        setupNavigationBarView()
+        setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfUserIsLoggedIn()
+    }
+    
+    func setupNavigationBarView(){
+        navigationItem.title = "Profile"
+        navigationController?.navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.tintColor = .white
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
     }
     
     func setupView() {
@@ -104,10 +111,8 @@ class ProfileController: UIViewController {
         } catch let logoutError {
             print(logoutError)
         }
-        
         profileUserNameLabel.text = ""
         organizationNameLabel.text = ""
-
         navigationController?.popViewController(animated: true)
     }
 }

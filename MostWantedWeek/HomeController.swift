@@ -96,6 +96,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     private func setupUpperMenuBar(){
         
         upperMenuBar.setHeaderProfileImage()
+        upperMenuBar.homeController = self
         
         view.addSubview(upperMenuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: upperMenuBar)
@@ -145,15 +146,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navigationController?.pushViewController(descriptionController, animated: true)
         }
         else if (menutab.tabLabelName == "Profile"){
-            if Auth.auth().currentUser?.uid == nil {
-                present(loginController, animated: true, completion: nil)
-            }
-            else {
-                navigationController?.pushViewController(profileController, animated: true)
-            }
+           showProfilePage()
         }
         else if (menutab.tabLabelName == "Meet the Bros"){
             navigationController?.pushViewController(biographyController, animated: true)
+        }
+    }
+    
+    func showProfilePage(){
+        if Auth.auth().currentUser?.uid == nil {
+            present(loginController, animated: true, completion: nil)
+        }
+        else {
+            navigationController?.pushViewController(profileController, animated: true)
         }
     }
     
