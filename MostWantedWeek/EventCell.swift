@@ -52,11 +52,12 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
             window.addSubview(dimView)
             window.addSubview(collectionView)
             
-            dimView.frame = window.frame
             dimView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
+            dimView.frame = window.frame
             dimView.alpha = 0
-            dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             
+            dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
                 self.collectionView.frame = CGRect(x: 0, y: windowHeight - cvHeight, width: windowWidth, height: cvHeight)

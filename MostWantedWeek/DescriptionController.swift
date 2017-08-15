@@ -44,7 +44,7 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.backgroundColor = .white
         
         collectionView?.register(PageHeaderCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
-        collectionView?.register(DescriptionBody.self, forCellWithReuseIdentifier: bodyId)
+        collectionView?.register(PageBodyCell.self, forCellWithReuseIdentifier: bodyId)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -61,46 +61,13 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
         return descriptionObjs?.count ?? 0
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! DescriptionBody
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! PageBodyCell
         cell.descriptionBody = descriptionObjs?[indexPath.item]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)
+        return CGSize(width: view.frame.width, height: view.frame.height * 2)
     }
 }
 
 
-class DescriptionBody: BaseCell {
-    
-    var descriptionBody: Description? {
-        didSet{
-            self.descriptionTextView.text = descriptionBody?.descriptionText
-        }
-    }
-    
-    let descriptionTextView: UITextView = {
-        let text = UITextView()
-        text.translatesAutoresizingMaskIntoConstraints = true
-        text.font = UIFont.systemFont(ofSize: 14)
-        return text
-    }()
-    
-    let thumbnailImageView: UIImageView = {
-        let image = UIImageView()
-        image.backgroundColor = .red
-        return image
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(descriptionTextView)
-        addSubview(thumbnailImageView)
-        
-        addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: descriptionTextView)
-        addConstraintsWithFormat(format: "H:|-20-[v0]-20-|", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "V:|-10-[v0(320)]-10-[v1(\(frame.width / 2))]", views: descriptionTextView, thumbnailImageView)
-   
-    }
-}

@@ -11,9 +11,12 @@
 		5620C6A81F2C0B44002BBDD5 /* UpperMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5620C6A71F2C0B44002BBDD5 /* UpperMenuBar.swift */; };
 		5620C6AA1F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5620C6A91F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift */; };
 		5620C6AC1F3181FE002BBDD5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5620C6AB1F3181FE002BBDD5 /* Event.swift */; };
+		5622BEF31F42AEA80058E859 /* BiographyCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622BEF21F42AEA80058E859 /* BiographyCells.swift */; };
+		5622BEF51F42B4B50058E859 /* BiographyContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622BEF41F42B4B50058E859 /* BiographyContentController.swift */; };
+		5622BEF71F42C16E0058E859 /* Biography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622BEF61F42C16E0058E859 /* Biography.swift */; };
 		5646F96D1F29178C00187D10 /* ProfileControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646F96C1F29178C00187D10 /* ProfileControllerViewController.swift */; };
 		5646F96F1F296FFA00187D10 /* BiographyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646F96E1F296FFA00187D10 /* BiographyController.swift */; };
-		5646F9711F29715200187D10 /* PageHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646F9701F29715200187D10 /* PageHeaderCell.swift */; };
+		5646F9711F29715200187D10 /* PageCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646F9701F29715200187D10 /* PageCells.swift */; };
 		5646F9731F2A5A2E00187D10 /* LoginControllerHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646F9721F2A5A2E00187D10 /* LoginControllerHandlers.swift */; };
 		567431C81F0B2AEA00BFC839 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567431C71F0B2AEA00BFC839 /* AppDelegate.swift */; };
 		567431CA1F0B2AEA00BFC839 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567431C91F0B2AEA00BFC839 /* HomeController.swift */; };
@@ -46,9 +49,12 @@
 		5620C6A71F2C0B44002BBDD5 /* UpperMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpperMenuBar.swift; sourceTree = "<group>"; };
 		5620C6A91F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAnnouncementControllerViewController.swift; sourceTree = "<group>"; };
 		5620C6AB1F3181FE002BBDD5 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		5622BEF21F42AEA80058E859 /* BiographyCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiographyCells.swift; sourceTree = "<group>"; };
+		5622BEF41F42B4B50058E859 /* BiographyContentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiographyContentController.swift; sourceTree = "<group>"; };
+		5622BEF61F42C16E0058E859 /* Biography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biography.swift; sourceTree = "<group>"; };
 		5646F96C1F29178C00187D10 /* ProfileControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileControllerViewController.swift; sourceTree = "<group>"; };
 		5646F96E1F296FFA00187D10 /* BiographyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiographyController.swift; sourceTree = "<group>"; };
-		5646F9701F29715200187D10 /* PageHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHeaderCell.swift; sourceTree = "<group>"; };
+		5646F9701F29715200187D10 /* PageCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCells.swift; sourceTree = "<group>"; };
 		5646F9721F2A5A2E00187D10 /* LoginControllerHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginControllerHandlers.swift; sourceTree = "<group>"; };
 		567431C41F0B2AEA00BFC839 /* MostWantedWeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MostWantedWeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567431C71F0B2AEA00BFC839 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,7 +147,8 @@
 			children = (
 				5679596C1F1E99AE00FFDAE2 /* HomeViews */,
 				5679595E1F1429AA00FFDAE2 /* SideMenuCells.swift */,
-				5646F9701F29715200187D10 /* PageHeaderCell.swift */,
+				5646F9701F29715200187D10 /* PageCells.swift */,
+				5622BEF21F42AEA80058E859 /* BiographyCells.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -156,6 +163,7 @@
 				5646F9721F2A5A2E00187D10 /* LoginControllerHandlers.swift */,
 				5646F96C1F29178C00187D10 /* ProfileControllerViewController.swift */,
 				5646F96E1F296FFA00187D10 /* BiographyController.swift */,
+				5622BEF41F42B4B50058E859 /* BiographyContentController.swift */,
 				5620C6A91F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift */,
 			);
 			name = Controllers;
@@ -170,6 +178,7 @@
 				567959771F1EFD9A00FFDAE2 /* Score.swift */,
 				568C8AB41F24609500DD1466 /* Description.swift */,
 				5620C6AB1F3181FE002BBDD5 /* Event.swift */,
+				5622BEF61F42C16E0058E859 /* Biography.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -345,7 +354,9 @@
 				5620C6A81F2C0B44002BBDD5 /* UpperMenuBar.swift in Sources */,
 				567959781F1EFD9A00FFDAE2 /* Score.swift in Sources */,
 				5646F96F1F296FFA00187D10 /* BiographyController.swift in Sources */,
+				5622BEF51F42B4B50058E859 /* BiographyContentController.swift in Sources */,
 				5679595D1F133E6200FFDAE2 /* MenuController.swift in Sources */,
+				5622BEF31F42AEA80058E859 /* BiographyCells.swift in Sources */,
 				567431E41F12E4AF00BFC839 /* Announcement.swift in Sources */,
 				5646F9731F2A5A2E00187D10 /* LoginControllerHandlers.swift in Sources */,
 				567959701F1EA5F400FFDAE2 /* LeftCell.swift in Sources */,
@@ -356,6 +367,7 @@
 				567431E61F12E4D400BFC839 /* Profile.swift in Sources */,
 				5679596E1F1E9C0B00FFDAE2 /* EventCell.swift in Sources */,
 				567431DB1F0DCDB200BFC839 /* Extensions.swift in Sources */,
+				5622BEF71F42C16E0058E859 /* Biography.swift in Sources */,
 				567959691F1E992900FFDAE2 /* CenterCell.swift in Sources */,
 				5679597A1F1FD37C00FFDAE2 /* DescriptionController.swift in Sources */,
 				568C8AB31F22FDA900DD1466 /* LoginController.swift in Sources */,
@@ -363,7 +375,7 @@
 				567431E11F0DD73400BFC839 /* LowerMenuBar.swift in Sources */,
 				567959761F1EDC0000FFDAE2 /* ScoreCell.swift in Sources */,
 				568C8AB51F24609500DD1466 /* Description.swift in Sources */,
-				5646F9711F29715200187D10 /* PageHeaderCell.swift in Sources */,
+				5646F9711F29715200187D10 /* PageCells.swift in Sources */,
 				5646F96D1F29178C00187D10 /* ProfileControllerViewController.swift in Sources */,
 				5679595F1F1429AA00FFDAE2 /* SideMenuCells.swift in Sources */,
 			);

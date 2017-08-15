@@ -148,7 +148,7 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         setupReturnHomeLabelView()
         setupInputContainersView()
         setupRegisterLoginButtonView()
-        setupLogoImageView()
+        setupProfileImageView()
         setupLoginRegisterSegmentedControl()
     }
     func setupReturnHomeLabelView(){
@@ -169,17 +169,16 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func displayErrorView(){
-        view.addSubview(errorDisplayView)
         
+        view.addSubview(errorDisplayView)
         errorDisplayView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
         errorDisplayView.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 5).isActive = true
         errorDisplayView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         errorDisplayView.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
-    
-   
-   
+
     func setupInputContainersView(){
+        
         view.addSubview(inputsContainerView)
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -246,7 +245,7 @@ class LoginController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         registerLoginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    func setupLogoImageView(){
+    func setupProfileImageView(){
         view.addSubview(profileImageView)
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -60).isActive = true

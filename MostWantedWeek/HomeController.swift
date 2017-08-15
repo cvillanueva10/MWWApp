@@ -135,13 +135,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let descriptionController = DescriptionController(collectionViewLayout: layout)
         let biographyController = BiographyController(collectionViewLayout: layout)
         
-        descriptionController.navigationItem.title = menutab.tabLabelName
         navigationController?.navigationBar.titleTextAttributes =
             [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.tintColor = .white
         
         if(menutab.tabLabelName == "About MWW" || menutab.tabLabelName == "Penny Wars" || menutab.tabLabelName == "Charm-A-Sig" || menutab.tabLabelName == "Star and Crescent"){
+            descriptionController.navigationItem.title = menutab.tabLabelName
             descriptionController.tab = menutab
             navigationController?.pushViewController(descriptionController, animated: true)
         }
@@ -149,6 +149,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
            showProfilePage()
         }
         else if (menutab.tabLabelName == "Meet the Bros"){
+            biographyController.navigationItem.title = menutab.tabLabelName
+            biographyController.tab = menutab
             navigationController?.pushViewController(biographyController, animated: true)
         }
     }

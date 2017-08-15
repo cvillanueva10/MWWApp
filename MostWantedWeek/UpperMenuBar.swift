@@ -103,10 +103,10 @@ class UpperMenuBar: UIView {
             }, withCancel: nil)
         }
     }
+    
     var homeController: HomeController?
     
     func handleShowProfile(){
-        
         homeController?.showProfilePage()
     }
 

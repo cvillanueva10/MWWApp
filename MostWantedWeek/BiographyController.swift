@@ -7,31 +7,67 @@
 //
 
 import UIKit
+import Firebase
 
 class BiographyController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let headerId = "headerId"
     let bodyId = "bodyId"
-
+    
+    lazy var biographyContent: BiographyContent = {
+        let view = BiographyContent()
+        return view
+    }()
+    
+    var tab: MenuTab? {
+        didSet{
+            navigationItem.title = tab?.tabLabelName
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupCollectionView()
-    }
-
-    func setupCollectionView(){
         
-        //collectionView?.contentInset = UIEdgeInsetsMake(0, 10, 10, 10)
+        setupCollectionView()
+        observeBiographies()
+    }
+    
+    func setupCollectionView(){
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
-        
         collectionView?.register(PageHeaderCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
-        collectionView?.register(BiographyBody.self, forCellWithReuseIdentifier: bodyId)
+        collectionView?.register(BiographyCell.self, forCellWithReuseIdentifier: bodyId)
+    }
+    
+    var biographyObjs = [Biography]()
+    
+    func observeBiographies(){
+        
+        let ref = Database.database().reference().child("biographies")
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: Any] {
+                let biography = Biography()
+                biography.setValuesForKeys(dictionary)
+                
+                self.biographyObjs.append(biography)
+                self.biographyObjs.sort(by: { (b1, b2) -> Bool in
+                    return (b1.orderNum?.intValue)! < (b2.orderNum?.intValue)!
+                })
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
+
+            
+            
+        }, withCancel: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PageHeaderCell
-        //header.descriptionHeader = descriptionObjs?[indexPath.item]
+        header.headerLabel.text = "Meet the Bros"
         return header
     }
     
@@ -40,13 +76,18 @@ class BiographyController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return biographyObjs.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! BiographyBody
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! BiographyCell
+        cell.biography = biographyObjs[indexPath.item]
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let biography = biographyObjs[indexPath.item]
+        biographyContent.showBioView(biography: biography)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -67,47 +108,4 @@ class BiographyController: UICollectionViewController, UICollectionViewDelegateF
 }
 
 
-class BiographyBody: BaseCell {
-    
-    let thumbnailImageView: UIImageView = {
-        let image = UIImageView()
-        image.backgroundColor = .red
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.masksToBounds = true
-        return image
-    }()
-    
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .orange
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    let positionNameLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .yellow
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        backgroundColor = .blue
-        addSubview(thumbnailImageView)
-        addSubview(nameLabel)
-        addSubview(positionNameLabel)
-        
-        thumbnailImageView.layer.cornerRadius = (frame.width-16)/2
-        addConstraintsWithFormat(format: "H:|-8-[v0(\(frame.width-16))]", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "V:|-8-[v0(\(frame.width-16))]-8-[v1(\(frame.height/4))]-0-[v2(\(frame.height/8))]", views: thumbnailImageView, nameLabel, positionNameLabel)
-        
-        
-        addConstraintsWithFormat(format: "H:|-8-[v0(\(frame.width-16))]", views: nameLabel)
-        addConstraintsWithFormat(format: "H:|-8-[v0(\(frame.width-16))]", views: positionNameLabel)
-        
-        //addConstraint(NSLayoutConstraint(item: lastNameLabel, attribute: .top, relatedBy: .equal, toItem: firstNameLabel, attribute: .bottom, multiplier: 1, constant: 4))
-        //addConstraint(NSLayoutConstraint(item: lastNameLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: frame.height/8))
-    }
-    
-}
+
