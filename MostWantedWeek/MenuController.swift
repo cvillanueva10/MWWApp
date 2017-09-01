@@ -36,10 +36,10 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig", imageName: "")
         var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "")
         var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "")
-        var shirtTab = MenuTab(logoName: "shirt", labelName: "Shirt Orders", imageName: "")
-        var profileTab = MenuTab(logoName: "user_profile", labelName: "Profile", imageName: "")
-        
-        return [aboutTab, moneyTab, tieTab, scTab, brosTab, shirtTab, profileTab]
+//        var shirtTab = MenuTab(logoName: "shirt", labelName: "Shirt Orders", imageName: "")
+        var adminTab = MenuTab(logoName: "user_profile", labelName: "Admin Only", imageName: "")
+//        
+        return [aboutTab, moneyTab, tieTab, scTab, brosTab, adminTab]
     }()
 
     func showSettings(){

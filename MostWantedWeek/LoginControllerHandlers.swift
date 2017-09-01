@@ -89,7 +89,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             
             if error != nil {
-                self.errorDisplayView.text = "Invalid email or password"
+                self.errorDisplayView.text = "Invalid password"
                 self.displayErrorView()
                 return
             }

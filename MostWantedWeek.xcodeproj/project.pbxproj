@@ -38,9 +38,12 @@
 		567959761F1EDC0000FFDAE2 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567959751F1EDC0000FFDAE2 /* ScoreCell.swift */; };
 		567959781F1EFD9A00FFDAE2 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567959771F1EFD9A00FFDAE2 /* Score.swift */; };
 		5679597A1F1FD37C00FFDAE2 /* DescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567959791F1FD37C00FFDAE2 /* DescriptionController.swift */; };
+		567B10E71F5396C90064924F /* AdminLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567B10E61F5396C90064924F /* AdminLoginController.swift */; };
+		567B10E91F5396DA0064924F /* AdminAccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567B10E81F5396DA0064924F /* AdminAccessController.swift */; };
+		567B10EB1F53971A0064924F /* AdminAccessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567B10EA1F53971A0064924F /* AdminAccessCell.swift */; };
 		568C8AB11F215A7D00DD1466 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 568C8AB01F215A7D00DD1466 /* GoogleService-Info.plist */; };
 		568C8AB31F22FDA900DD1466 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB21F22FDA900DD1466 /* LoginController.swift */; };
-		568C8AB51F24609500DD1466 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB41F24609500DD1466 /* Description.swift */; };
+		568C8AB51F24609500DD1466 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB41F24609500DD1466 /* Page.swift */; };
 		568C8AB81F24BC2200DD1466 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB71F24BC2200DD1466 /* ApiService.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,9 +81,12 @@
 		567959751F1EDC0000FFDAE2 /* ScoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		567959771F1EFD9A00FFDAE2 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		567959791F1FD37C00FFDAE2 /* DescriptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionController.swift; sourceTree = "<group>"; };
+		567B10E61F5396C90064924F /* AdminLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminLoginController.swift; sourceTree = "<group>"; };
+		567B10E81F5396DA0064924F /* AdminAccessController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminAccessController.swift; sourceTree = "<group>"; };
+		567B10EA1F53971A0064924F /* AdminAccessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminAccessCell.swift; sourceTree = "<group>"; };
 		568C8AB01F215A7D00DD1466 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		568C8AB21F22FDA900DD1466 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		568C8AB41F24609500DD1466 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		568C8AB41F24609500DD1466 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		568C8AB71F24BC2200DD1466 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		CDA686C9E5B5933ECD2FBE53 /* Pods_MostWantedWeek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MostWantedWeek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E1A5957DED6A42B7F82E9C /* Pods-MostWantedWeek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MostWantedWeek.release.xcconfig"; path = "Pods/Target Support Files/Pods-MostWantedWeek/Pods-MostWantedWeek.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 				5679595E1F1429AA00FFDAE2 /* SideMenuCells.swift */,
 				5646F9701F29715200187D10 /* PageCells.swift */,
 				5622BEF21F42AEA80058E859 /* BiographyCells.swift */,
+				567B10EA1F53971A0064924F /* AdminAccessCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -156,12 +163,11 @@
 		567431DF1F0DCEFD00BFC839 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				567B10EC1F58E9D40064924F /* Archive */,
+				567B10E51F5396AE0064924F /* Admin */,
 				567431C91F0B2AEA00BFC839 /* HomeController.swift */,
 				5679595C1F133E6200FFDAE2 /* MenuController.swift */,
 				567959791F1FD37C00FFDAE2 /* DescriptionController.swift */,
-				568C8AB21F22FDA900DD1466 /* LoginController.swift */,
-				5646F9721F2A5A2E00187D10 /* LoginControllerHandlers.swift */,
-				5646F96C1F29178C00187D10 /* ProfileControllerViewController.swift */,
 				5646F96E1F296FFA00187D10 /* BiographyController.swift */,
 				5622BEF41F42B4B50058E859 /* BiographyContentController.swift */,
 				5620C6A91F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift */,
@@ -176,7 +182,7 @@
 				567431E51F12E4D400BFC839 /* Profile.swift */,
 				567959601F149DE600FFDAE2 /* MenuTab.swift */,
 				567959771F1EFD9A00FFDAE2 /* Score.swift */,
-				568C8AB41F24609500DD1466 /* Description.swift */,
+				568C8AB41F24609500DD1466 /* Page.swift */,
 				5620C6AB1F3181FE002BBDD5 /* Event.swift */,
 				5622BEF61F42C16E0058E859 /* Biography.swift */,
 			);
@@ -196,6 +202,25 @@
 				567959751F1EDC0000FFDAE2 /* ScoreCell.swift */,
 			);
 			name = HomeViews;
+			sourceTree = "<group>";
+		};
+		567B10E51F5396AE0064924F /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				567B10E61F5396C90064924F /* AdminLoginController.swift */,
+				567B10E81F5396DA0064924F /* AdminAccessController.swift */,
+			);
+			name = Admin;
+			sourceTree = "<group>";
+		};
+		567B10EC1F58E9D40064924F /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				568C8AB21F22FDA900DD1466 /* LoginController.swift */,
+				5646F9721F2A5A2E00187D10 /* LoginControllerHandlers.swift */,
+				5646F96C1F29178C00187D10 /* ProfileControllerViewController.swift */,
+			);
+			name = Archive;
 			sourceTree = "<group>";
 		};
 		568C8AB61F24BC0600DD1466 /* ApiService */ = {
@@ -349,9 +374,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5620C6AA1F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift in Sources */,
+				567B10E91F5396DA0064924F /* AdminAccessController.swift in Sources */,
 				5679596B1F1E99A800FFDAE2 /* RightCell.swift in Sources */,
 				567959611F149DE600FFDAE2 /* MenuTab.swift in Sources */,
 				5620C6A81F2C0B44002BBDD5 /* UpperMenuBar.swift in Sources */,
+				567B10EB1F53971A0064924F /* AdminAccessCell.swift in Sources */,
 				567959781F1EFD9A00FFDAE2 /* Score.swift in Sources */,
 				5646F96F1F296FFA00187D10 /* BiographyController.swift in Sources */,
 				5622BEF51F42B4B50058E859 /* BiographyContentController.swift in Sources */,
@@ -374,7 +401,8 @@
 				567431C81F0B2AEA00BFC839 /* AppDelegate.swift in Sources */,
 				567431E11F0DD73400BFC839 /* LowerMenuBar.swift in Sources */,
 				567959761F1EDC0000FFDAE2 /* ScoreCell.swift in Sources */,
-				568C8AB51F24609500DD1466 /* Description.swift in Sources */,
+				567B10E71F5396C90064924F /* AdminLoginController.swift in Sources */,
+				568C8AB51F24609500DD1466 /* Page.swift in Sources */,
 				5646F9711F29715200187D10 /* PageCells.swift in Sources */,
 				5646F96D1F29178C00187D10 /* ProfileControllerViewController.swift in Sources */,
 				5679595F1F1429AA00FFDAE2 /* SideMenuCells.swift in Sources */,

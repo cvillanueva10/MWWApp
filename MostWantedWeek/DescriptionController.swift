@@ -9,34 +9,53 @@
 import UIKit
 import Firebase
 
-let descriptionUrl = "https://firebasestorage.googleapis.com/v0/b/mostwantedweek-e840a.appspot.com/o/description_info.json?alt=media&token=d16013c2-4953-4cf6-b29c-b1c8789d4c31"
-
 class DescriptionController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
     let headerId = "headerId"
     let bodyId = "bodyId"
     
+    var pageTabName: String?
+    
     var tab: MenuTab? {
         didSet{
             navigationItem.title = tab?.tabLabelName
+            pageTabName = tab?.tabLabelName
+            
         }
     }
     
-    var descriptionObjs: [Description]?
+    //    var descriptionObjs: [Description]?
+    var pageObjs = [Page]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchDescriptions()
+       
+        observePages()
         setupCollectionView()
+        
     }
     
-    func fetchDescriptions(){
-            let tabName = tab?.tabLabelName
-        ApiService.sharedInstance.fetchDescriptions(tabName: tabName!, url: descriptionUrl){ (descriptionObjs) in
-            self.descriptionObjs = descriptionObjs
-            self.collectionView?.reloadData()
-        }
+    func observePages(){
+        Database.database().reference().child("pagetabs").child(pageTabName!).observe(.value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: Any] {
+                
+                let page = Page()
+                page.breakdownLabel = dictionary["breakdownlabel"] as? String
+                page.breakdownText = dictionary["breakdowntext"] as? String
+                page.descriptionText = dictionary["description"] as? String
+                page.headerImage = dictionary["headerimage"] as? String
+                page.headerLabel = dictionary["headerlabel"] as? String
+                
+                self.pageObjs.append(page)
+                
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
+            }
+            
+            }, withCancel: nil)
+        
     }
     
     func setupCollectionView(){
@@ -49,7 +68,10 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PageHeaderCell
-        header.descriptionHeader = descriptionObjs?[indexPath.item]
+        //header.descriptionHeader = descriptionObjs?[indexPath.item]
+        if pageObjs.count > 0 {
+            header.pageHeader = pageObjs[indexPath.item]
+        }
         return header
     }
     
@@ -58,15 +80,17 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return descriptionObjs?.count ?? 0
+        //  return descriptionObjs?.count ?? 0
+        return pageObjs.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! PageBodyCell
-        cell.descriptionBody = descriptionObjs?[indexPath.item]
+        //        cell.descriptionBody = descriptionObjs?[indexPath.item]
+        cell.pageBody = pageObjs[indexPath.item]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height * 2)
+        return CGSize(width: view.frame.width, height: view.frame.height * 1.5)
     }
 }
 

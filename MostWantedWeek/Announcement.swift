@@ -16,6 +16,7 @@ class Announcement: NSObject {
     var fromId: String?
     var numOfLikes: NSNumber?
     var name: String?
+    var header: String?
     var profileImageUrl: String?
     var childRef: String?
     var isLiked: Bool?

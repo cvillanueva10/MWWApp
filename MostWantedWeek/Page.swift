@@ -8,9 +8,12 @@
 
 import UIKit
 
-class Description: NSObject {
+class Page: NSObject {
     
     var descriptionText: String?
     var headerImage: String?
     var headerLabel: String?
+    var breakdownLabel: String?
+    var breakdownText: String?
+    
 }

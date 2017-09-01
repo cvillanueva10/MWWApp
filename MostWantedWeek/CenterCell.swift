@@ -22,10 +22,15 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         return cv
     }()
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: .valueChanged)
+        return refresh
+    }()
+
+    
     override func setupViews() {
         super.setupViews()
-        
-       
         
         observeAnnouncements()
 
@@ -34,25 +39,23 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
         
         collectionView.register(AnnouncementCell.self, forCellWithReuseIdentifier: cellId)
+        self.collectionView.addSubview(refreshControl)
     }
     
     var announcementObjs = [Announcement]()
     
-//    func updateNumOfLikes(childRef: String, value: Int){
-//        
-//        Database.database().reference(fromURL: childRef).observeSingleEvent(of: .value, with: { (snapshot) in
-//            
-//            if let dictionary = snapshot.value as? [String: Any]{
-//                let currentLikes = dictionary["numOfLikes"] as! Int
-//                let updatedLikes = currentLikes + value
-//                
-//                Database.database().reference(fromURL: childRef).updateChildValues(["numOfLikes": updatedLikes])
-//            }
-//            
-//        })
-// 
-//    }
-//    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        
+        for announcement in announcementObjs {
+            if let timeStamp = announcement.timeStamp {
+                announcement.timeFormatted = checkAgeOfAnnouncement(postedTime: Int(timeStamp))
+            }
+        }
+        self.collectionView.reloadData()
+        refreshControl.endRefreshing()
+        
+    }
+
     func observeAnnouncements(){
         
         let ref = Database.database().reference().child("announcements")
@@ -61,13 +64,17 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
             if let dictionary = snapshot.value as? [String: Any] {
                 let announcement = Announcement()
                 announcement.setValuesForKeys(dictionary)
+                if let timeStamp = announcement.timeStamp {
+                    announcement.timeFormatted = self.checkAgeOfAnnouncement(postedTime: Int(timeStamp))
+                }
+                
                 
                 if let uid = announcement.fromId{
                     Database.database().reference().child("users").child(uid).observe(.value, with: { (snapshot) in
                         
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             announcement.name = dictionary["name"] as? String
-                            announcement.profileImageUrl = dictionary["profileImageUrl"] as? String
+//                            announcement.profileImageUrl = dictionary["profileImageUrl"] as? String
                         }
                         
                         self.announcementObjs.append(announcement)
@@ -83,6 +90,32 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
                 }
             }
         }, withCancel: nil)
+    }
+    
+    func checkAgeOfAnnouncement(postedTime: Int) -> String {
+        
+        let currentTime: Int = Int(NSDate().timeIntervalSince1970)
+        let difference = currentTime - postedTime
+        let initialString = "Posted "
+        if difference == 0 {
+            return initialString + "Just Now"
+        }
+        else if difference > 0 && difference < 60 {
+            return initialString + "\(difference) Seconds Ago"
+        }
+        else if difference >= 60 && difference < 3600 {
+            return initialString + "\(difference / 60) Minutes Ago"
+        }
+        else if difference >= 3600 && difference < 86400 {
+            return initialString + "\(difference / 3600) Hours Ago"
+        }
+        else if difference >= 86400 && difference < 604800 {
+            return initialString + "\(difference / 86400) Days Ago"
+        }
+        else {
+            return initialString + "\(difference / 604800) Weeks Ago"
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -101,7 +134,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         if let announcementText = announcementObjs[indexPath.item].text{
             
             let rect = NSString(string: announcementText).boundingRect(with: CGSize(width: frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
-            let knownHeight: CGFloat = 16 + 44 + 8 + 16 + 1
+            let knownHeight: CGFloat = 16 + 30 + 8 + 44 + 8 + 16 + 1
             
             return CGSize(width: frame.width, height: rect.height + knownHeight + 60)
         }

@@ -10,7 +10,7 @@ import UIKit
 
 class BiographyContent: NSObject {
     
-    let bioImageView: UIImageView = {
+    lazy var bioImageView: UIImageView = {
         let iv = UIImageView()
         iv.layer.borderColor = UIColor.black.cgColor
         iv.layer.borderWidth = 1
@@ -20,9 +20,12 @@ class BiographyContent: NSObject {
         return iv
     }()
     
-    let bioContentView: UIView = {
+    lazy var bioContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleDismiss))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        view.addGestureRecognizer(swipeDown)
         return view
     }()
     
@@ -31,12 +34,17 @@ class BiographyContent: NSObject {
         view.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleDismiss))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        view.addGestureRecognizer(swipeDown)
         return view
     }()
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 26)
+        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        label.font = UIFont.boldSystemFont(ofSize: 32)
+        label.textColor = .white
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -45,6 +53,7 @@ class BiographyContent: NSObject {
     let yearLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.backgroundColor = .white
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,6 +61,7 @@ class BiographyContent: NSObject {
     
     let classLabel: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +70,7 @@ class BiographyContent: NSObject {
     
     let majorLabel: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +79,7 @@ class BiographyContent: NSObject {
     
     let separatorLine: UIView = {
         let line = UIView()
-        line.backgroundColor = UIColor.rgb(red: 150, green: 150, blue: 150)
+        line.backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()
@@ -77,8 +88,16 @@ class BiographyContent: NSObject {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.textColor = UIColor.rgb(red: 100, green: 100, blue: 100)
+        textView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 20)
+        textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
+    }()
+    
+    let backgroundFillerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        return view
     }()
 
     var imageWidth: CGFloat?
@@ -96,11 +115,19 @@ class BiographyContent: NSObject {
         if let year = biography.year {
             yearLabel.text = "Year: " + year
         }
+        
+        
         nameLabel.text = biography.name
         
         majorLabel.text = biography.major
         classLabel.text = biography.pledgeClass
         descriptionTextView.text = biography.descriptionText
+        
+//        bioContentView.addSubview(backgroundFillerView)
+//        backgroundFillerView.topAnchor.constraint(equalTo: bioContentView.topAnchor).isActive = true
+//        backgroundFillerView.centerXAnchor.constraint(equalTo: bioContentView.centerXAnchor).isActive = true
+//        backgroundFillerView.widthAnchor.constraint(equalTo: bioContentView.widthAnchor).isActive = true
+//        backgroundFillerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         bioContentView.addSubview(nameLabel)
         bioContentView.addSubview(yearLabel)
@@ -109,16 +136,17 @@ class BiographyContent: NSObject {
         bioContentView.addSubview(separatorLine)
         bioContentView.addSubview(descriptionTextView)
 
-        bioContentView.addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: nameLabel)
-        bioContentView.addConstraintsWithFormat(format: "H:|-10-[v0(\(bioContentView.frame.width * 0.45))]-[v1]-10-|", views: yearLabel, classLabel)
-        bioContentView.addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: majorLabel)
-        bioContentView.addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: descriptionTextView)
+        bioContentView.addConstraintsWithFormat(format: "H:|[v0]|", views: nameLabel)
+        bioContentView.addConstraintsWithFormat(format: "H:|-0-[v0(\(bioContentView.frame.width * 0.45))]-0-[v1]-0-|", views: yearLabel, classLabel)
+        bioContentView.addConstraintsWithFormat(format: "H:|[v0]|", views: majorLabel)
+        bioContentView.addConstraintsWithFormat(format: "H:|[v0]|", views: descriptionTextView)
         bioContentView.addConstraintsWithFormat(format: "H:|[v0]|", views: separatorLine)
 
-        bioContentView.addConstraintsWithFormat(format: "V:|-(\(bioImageView.frame.height * 0.5 + 5))-[v0(30)]-5-[v1(30)]-0-[v2(30)]-5-[v3(1)]-5-[v4]-5-|", views: nameLabel, yearLabel, majorLabel, separatorLine, descriptionTextView)
+        bioContentView.addConstraintsWithFormat(format: "V:|-(\(bioImageView.frame.height * 0.5 - 30))-[v0(40)]-0-[v1(35)]-0-[v2(35)]-0-[v3(3)]-0-[v4]-0-|", views: nameLabel, yearLabel, majorLabel, separatorLine, descriptionTextView)
         
         classLabel.topAnchor.constraint(equalTo: yearLabel.topAnchor).isActive = true
         classLabel.heightAnchor.constraint(equalTo: yearLabel.heightAnchor).isActive = true
+        
     }
     
     func showBioView(biography: Biography){
@@ -147,14 +175,14 @@ class BiographyContent: NSObject {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 
                 self.dimView.alpha = 1
-                self.bioImageView.frame = CGRect(x: centerX - (imageWidth * 0.5), y: centerY - (imageHeight * 0.5), width: imageWidth, height: imageHeight)
+                self.bioImageView.frame = CGRect(x: centerX - (imageWidth * 0.5), y: centerY - (imageHeight * 0.5) - 30, width: imageWidth, height: imageHeight)
                 self.bioContentView.frame = CGRect(x: 0, y: window.frame.height - contentHeight, width: window.frame.width, height: contentHeight)
                 
             }, completion: nil)
         }
     }
     
-    func handleDismiss(){
+    func handleDismiss(gesture: UISwipeGestureRecognizer){
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             

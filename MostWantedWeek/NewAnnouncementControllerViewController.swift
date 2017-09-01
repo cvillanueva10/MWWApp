@@ -11,12 +11,26 @@ import Firebase
 
 class NewAnnouncementController: UIViewController {
     
+    let announcementHeaderField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Enter Header Title"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    
     lazy var announcementTextField : UITextView = {
         let text = UITextView()
         text.font = UIFont.systemFont(ofSize: 20)
         text.isEditable = true
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
+    }()
+    
+    let separatorLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = UIColor.rgb(red: 150, green: 150, blue: 150)
+        line.translatesAutoresizingMaskIntoConstraints = false
+        return line
     }()
     
     let postButtonView : UIButton = {
@@ -42,7 +56,7 @@ class NewAnnouncementController: UIViewController {
         navigationItem.title = "New Announcement"
         view.backgroundColor = .white
         
-        setupAnnouncementTextField()
+        setupAnnouncementTextFields()
         setupPostButtonView()
         
     }
@@ -62,7 +76,7 @@ class NewAnnouncementController: UIViewController {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
-
+        
         guard let uid = Auth.auth().currentUser?.uid else {
             return
         }
@@ -71,19 +85,39 @@ class NewAnnouncementController: UIViewController {
         let childRef = ref.childByAutoId()
         let timeStamp: Int = Int(NSDate().timeIntervalSince1970)
         let childRefString = String(describing: childRef)
-        let values = ["text" : self.announcementTextField.text!, "fromId" : uid, "timeStamp" : timeStamp, "timeFormatted" : formatter.string(from: date), "numOfLikes" : 0, "childRef" : childRefString] as [String : Any]
-        childRef.updateChildValues(values)
-        
+        if let headerText = self.announcementHeaderField.text, let bodyText = self.announcementTextField.text {
+            
+            let values = ["header" : headerText, "text" : bodyText, "fromId" : uid, "timeStamp" : timeStamp, "timeFormatted" : formatter.string(from: date), "numOfLikes" : 0, "childRef" : childRefString] as [String : Any]
+            
+            childRef.updateChildValues(values)
+        }
+        else {
+            
+            //IMPLEMENT ERROR MESSAGE
+        }
+
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupAnnouncementTextField(){
+    func setupAnnouncementTextFields(){
+        view.addSubview(announcementHeaderField)
         view.addSubview(announcementTextField)
+        view.addSubview(separatorLine)
+        
+        announcementHeaderField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
+        announcementHeaderField.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
+        announcementHeaderField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
+        announcementHeaderField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        separatorLine.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        separatorLine.topAnchor.constraint(equalTo: announcementHeaderField.bottomAnchor, constant: 5).isActive = true
+        separatorLine.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        separatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         announcementTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        announcementTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        announcementTextField.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 5).isActive = true
         announcementTextField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
-        announcementTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2).isActive = true
+        announcementTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3).isActive = true
     }
     
     func setupPostButtonView(){

@@ -39,7 +39,7 @@ class SideMenuCells: BaseCell {
     let tabIcon: UIImageView = {
         let icon = UIImageView()
         icon.contentMode = .scaleAspectFill
-        icon.layer.masksToBounds = true;
+        icon.layer.masksToBounds = true
         return icon
     }()
     
