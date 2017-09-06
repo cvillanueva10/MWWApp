@@ -12,8 +12,9 @@ import Firebase
 class AdminAccessController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
-    let icons = ["write"]
-    let labels = ["New Announcement"]
+    let icons = ["write", "close", ""]
+    let labels = ["New Announcement", "Delete Announcement", "Update Score"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +26,19 @@ class AdminAccessController: UICollectionViewController, UICollectionViewDelegat
     }
     
     func handleNewAnnouncement() {
-        
         let newAnnouncementController = NewAnnouncementController()
         navigationController?.pushViewController(newAnnouncementController, animated: true)
+    }
+    func handleDeleteAnnouncement() {
+//        let layout = UICollectionViewFlowLayout()
+//        let deleteAnnouncementController = DeleteAnnouncementController(collectionViewLayout: layout)
+//        navigationController?.pushViewController(deleteAnnouncementController, animated: true)
         
+        let deleteController = DeleteController()
+        navigationController?.pushViewController(deleteController, animated: true)
+    }
+    func handleUpdateScore() {
+        print(123)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -42,11 +52,17 @@ class AdminAccessController: UICollectionViewController, UICollectionViewDelegat
         if cell.accessNameLabel.text == labels[0] {
             cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleNewAnnouncement)))
         }
+        else if cell.accessNameLabel.text == labels[1] {
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDeleteAnnouncement)))
+        }
+        else if cell.accessNameLabel.text == labels[2] {
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUpdateScore)))
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return labels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

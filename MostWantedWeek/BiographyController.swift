@@ -49,7 +49,6 @@ class BiographyController: UICollectionViewController, UICollectionViewDelegateF
             if let dictionary = snapshot.value as? [String: Any] {
                 let biography = Biography()
                 biography.setValuesForKeys(dictionary)
-                
                 self.biographyObjs.append(biography)
                 self.biographyObjs.sort(by: { (b1, b2) -> Bool in
                     return (b1.orderNum?.intValue)! < (b2.orderNum?.intValue)!
@@ -58,10 +57,7 @@ class BiographyController: UICollectionViewController, UICollectionViewDelegateF
             
             DispatchQueue.main.async {
                 self.collectionView?.reloadData()
-            }
-
-            
-            
+            }     
         }, withCancel: nil)
     }
     

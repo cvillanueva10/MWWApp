@@ -46,6 +46,7 @@ class SideMenuCells: BaseCell {
     let separatorLine: UIView = {
         let line = UIView()
         line.backgroundColor = UIColor.init(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+        line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()
     

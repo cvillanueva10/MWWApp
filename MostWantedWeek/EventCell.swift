@@ -23,6 +23,9 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
         let layout = UICollectionViewFlowLayout()
         layout.sectionHeadersPinToVisibleBounds = true
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleDismiss))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        cv.addGestureRecognizer(swipeDown)
         cv.backgroundColor = UIColor.white
         cv.delegate = self
         cv.dataSource = self
@@ -44,7 +47,6 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
         }
         
         if let window = UIApplication.shared.keyWindow {
-            
             let cvHeight = window.frame.height * 0.7
             let windowHeight = window.frame.height
             let windowWidth = window.frame.width
@@ -55,7 +57,6 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
             dimView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
             dimView.frame = window.frame
             dimView.alpha = 0
-            
             dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {

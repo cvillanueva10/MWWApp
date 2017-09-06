@@ -40,16 +40,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Home"
-        navigationController?.navigationBar.isTranslucent = false
-        
-        let pageTitle = UILabel(frame: CGRect(x:0,y:0,width:100,height:100))
-        pageTitle.text = "MWW"
-        pageTitle.textAlignment = .center
-        pageTitle.font = UIFont.boldSystemFont(ofSize: 24)
-        pageTitle.textColor = UIColor.white
-        navigationItem.titleView = pageTitle
-        
+        setupPageView()
         loadPageView()
     }
     
@@ -59,14 +50,29 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         loadPageView()
         
-        let initialIndex = IndexPath(item: 1, section: 0)
+        let initialIndex = IndexPath(item: 1, section: 0) as IndexPath
+        lowerMenuBar.collectionView.selectItem(at: initialIndex, animated: false, scrollPosition: [])
         collectionView?.scrollToItem(at: initialIndex, at: .centeredHorizontally, animated: false)
         
     }
     
+    func setupPageView() {
+        
+        navigationItem.title = "Home"
+        navigationController?.navigationBar.isTranslucent = false
+        
+        let pageTitle = UILabel(frame: CGRect(x:0,y:0,width:100,height:100))
+        pageTitle.text = "MWW"
+        pageTitle.textAlignment = .center
+        pageTitle.font = UIFont.boldSystemFont(ofSize: 24)
+        pageTitle.textColor = UIColor.white
+        navigationItem.titleView = pageTitle
+    }
+    
     func loadPageView(){
+        
         setupCollectionView()
-        setupUpperMenuBar()
+        setupMenuButton()
         setupLowerMenuBar()
     }
     
@@ -87,13 +93,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         lowerMenuBar.horizontalBarLeftAnchorConstrait?.constant = view.frame.width / 3
     }
-    
-    private func setupUpperMenuBar(){
-        
-        setupMenuButton()
 
-    }
-    
     func setupMenuButton() {
         
         let button = UIButton.init(type: .custom)
@@ -103,7 +103,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let barButton = UIBarButtonItem.init(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
     }
-
     
     private func setupLowerMenuBar(){
         view.addSubview(lowerMenuBar)
@@ -115,25 +114,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         menuController.showSettings()
     }
     
-    func writeHandler(){
-        if Auth.auth().currentUser?.uid == nil {
-            let loginController = LoginController()
-            present(loginController, animated: true, completion: nil)
-        } else {
-            let newAnnouncementController = NewAnnouncementController()
-            navigationController?.pushViewController(newAnnouncementController, animated: true)
-        }
-        
-    }
-    
-    let profileController = ProfileController()
+    // Load other controller from side menu
     let loginController = LoginController()
     let adminLoginController = AdminLoginController()
-    
+    let endorsementController = EndorsementController()
+    let waitingController = WaitingController()
     
     func showControllerForMenuTab(menutab: MenuTab){
         let layout = UICollectionViewFlowLayout()
-        let descriptionController = DescriptionController(collectionViewLayout: layout)
+        let pageController = PageController(collectionViewLayout: layout)
         let biographyController = BiographyController(collectionViewLayout: layout)
         
         navigationController?.navigationBar.titleTextAttributes =
@@ -142,9 +131,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationController?.navigationBar.tintColor = .white
         
         if(menutab.tabLabelName == "About MWW" || menutab.tabLabelName == "Penny Wars" || menutab.tabLabelName == "Charm-A-Sig" || menutab.tabLabelName == "Star & Crescent"){
-            descriptionController.navigationItem.title = menutab.tabLabelName
-            descriptionController.tab = menutab
-            navigationController?.pushViewController(descriptionController, animated: true)
+            pageController.navigationItem.title = menutab.tabLabelName
+            pageController.tab = menutab
+            navigationController?.pushViewController(pageController, animated: true)
         }
         else if (menutab.tabLabelName == "Admin Only"){
            adminLoginController.homeController = self
@@ -155,15 +144,30 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             biographyController.tab = menutab
             navigationController?.pushViewController(biographyController, animated: true)
         }
+        else if (menutab.tabLabelName == "Endorsements") {
+            
+            if Auth.auth().currentUser?.uid == nil {
+                endorsementController.navigationItem.title = menutab.tabLabelName
+                endorsementController.homeController = self
+                present(endorsementController, animated: true, completion: nil)
+            }
+            else {
+                waitingController.navigationItem.title = menutab.tabLabelName
+                waitingController.homeController = self
+                navigationController?.pushViewController(waitingController, animated: true)
+            }
+        }
     }
     
-    func showProfilePage(){
-        if Auth.auth().currentUser?.uid == nil {
-            present(loginController, animated: true, completion: nil)
-        }
-        else {
-            navigationController?.pushViewController(profileController, animated: true)
-        }
+    func switchToEndorsementPage() {
+        navigationController?.popViewController(animated: true)
+        present(endorsementController, animated: true, completion: nil)
+    }
+    
+    func switchToWaitingPage() {
+        waitingController.navigationItem.title = "Endorsements"
+        dismiss(animated: true, completion: nil)
+        navigationController?.pushViewController(waitingController, animated: true)
     }
     
     func showAdminPage(){
@@ -172,7 +176,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         adminAccessController.navigationItem.title = "Admin"
         navigationController?.pushViewController(adminAccessController, animated: true)
     }
-    
     
     func scrollToSectionIndex(sectionIndex: Int){
         let indexPath = IndexPath(item: sectionIndex, section: 0)

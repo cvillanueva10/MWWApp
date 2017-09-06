@@ -105,9 +105,6 @@ class AnnouncementCell: BaseCell{
         //Vertical
         addConstraintsWithFormat(format: "V:|-8-[v0(40)]-4-[v1(2)]-4-[v2]-8-[v3(30)]-16-[v4(10)]|", views: headerLabel, headerLine, announcementTextView, timeStamp, seperatorView)
         
-        //Height
-        //addConstraint(NSLayoutConstraint(item: announcementTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: ))
-        
         //Username constraints
         //top
         addConstraint(NSLayoutConstraint(item: userName, attribute: .top, relatedBy: .equal, toItem: timeStamp, attribute: .top, multiplier: 1, constant: 0))

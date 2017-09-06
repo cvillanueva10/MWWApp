@@ -87,7 +87,7 @@ class NewAnnouncementController: UIViewController {
         let childRefString = String(describing: childRef)
         if let headerText = self.announcementHeaderField.text, let bodyText = self.announcementTextField.text {
             
-            let values = ["header" : headerText, "text" : bodyText, "fromId" : uid, "timeStamp" : timeStamp, "timeFormatted" : formatter.string(from: date), "numOfLikes" : 0, "childRef" : childRefString] as [String : Any]
+            let values = ["header" : headerText, "text" : bodyText, "fromId" : uid, "timeStamp" : timeStamp, "timeFormatted" : formatter.string(from: date), "childRef" : childRefString] as [String : Any]
             
             childRef.updateChildValues(values)
         }

@@ -32,7 +32,7 @@ class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        
+    
         collectionView.register(ScoreCell.self, forCellWithReuseIdentifier: cellId)
     }
     

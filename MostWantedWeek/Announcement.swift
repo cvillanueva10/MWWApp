@@ -14,10 +14,10 @@ class Announcement: NSObject {
     var timeFormatted: String?
     var timeStamp: NSNumber?
     var fromId: String?
-    var numOfLikes: NSNumber?
     var name: String?
     var header: String?
+    var numOfLikes: NSNumber?
     var profileImageUrl: String?
     var childRef: String?
-    var isLiked: Bool?
+    var index: Int?
 }

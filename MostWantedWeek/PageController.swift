@@ -9,30 +9,26 @@
 import UIKit
 import Firebase
 
-class DescriptionController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class PageController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
     let headerId = "headerId"
     let bodyId = "bodyId"
-    
     var pageTabName: String?
     
     var tab: MenuTab? {
         didSet{
             navigationItem.title = tab?.tabLabelName
             pageTabName = tab?.tabLabelName
-            
         }
     }
     
-    //    var descriptionObjs: [Description]?
     var pageObjs = [Page]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         observePages()
         setupCollectionView()
-        
     }
     
     func observePages(){
@@ -46,29 +42,26 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
                 page.descriptionText = dictionary["description"] as? String
                 page.headerImage = dictionary["headerimage"] as? String
                 page.headerLabel = dictionary["headerlabel"] as? String
-                
                 self.pageObjs.append(page)
                 
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
                 }
             }
-            
-            }, withCancel: nil)
-        
+        }, withCancel: nil)
     }
     
     func setupCollectionView(){
+        
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
-        
         collectionView?.register(PageHeaderCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView?.register(PageBodyCell.self, forCellWithReuseIdentifier: bodyId)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PageHeaderCell
-        //header.descriptionHeader = descriptionObjs?[indexPath.item]
         if pageObjs.count > 0 {
             header.pageHeader = pageObjs[indexPath.item]
         }
@@ -80,12 +73,10 @@ class DescriptionController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //  return descriptionObjs?.count ?? 0
         return pageObjs.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bodyId, for: indexPath) as! PageBodyCell
-        //        cell.descriptionBody = descriptionObjs?[indexPath.item]
         cell.pageBody = pageObjs[indexPath.item]
         return cell
     }

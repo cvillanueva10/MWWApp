@@ -115,20 +115,12 @@ class BiographyContent: NSObject {
         if let year = biography.year {
             yearLabel.text = "Year: " + year
         }
-        
-        
+     
         nameLabel.text = biography.name
-        
         majorLabel.text = biography.major
         classLabel.text = biography.pledgeClass
         descriptionTextView.text = biography.descriptionText
-        
-//        bioContentView.addSubview(backgroundFillerView)
-//        backgroundFillerView.topAnchor.constraint(equalTo: bioContentView.topAnchor).isActive = true
-//        backgroundFillerView.centerXAnchor.constraint(equalTo: bioContentView.centerXAnchor).isActive = true
-//        backgroundFillerView.widthAnchor.constraint(equalTo: bioContentView.widthAnchor).isActive = true
-//        backgroundFillerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
+   
         bioContentView.addSubview(nameLabel)
         bioContentView.addSubview(yearLabel)
         bioContentView.addSubview(majorLabel)
@@ -165,11 +157,10 @@ class BiographyContent: NSObject {
             dimView.frame = window.frame
             dimView.alpha = 0
             
+            bioImageView.layer.cornerRadius = imageHeight * 0.5
             bioImageView.frame = CGRect(x: centerX - (imageWidth * 0.5), y: window.frame.height, width: imageWidth, height: imageHeight)
             bioContentView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: contentHeight)
-            
-            bioImageView.layer.cornerRadius = imageHeight * 0.5
-            
+
             setupBioContentView(biography: biography)
      
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -177,7 +168,6 @@ class BiographyContent: NSObject {
                 self.dimView.alpha = 1
                 self.bioImageView.frame = CGRect(x: centerX - (imageWidth * 0.5), y: centerY - (imageHeight * 0.5) - 30, width: imageWidth, height: imageHeight)
                 self.bioContentView.frame = CGRect(x: 0, y: window.frame.height - contentHeight, width: window.frame.width, height: contentHeight)
-                
             }, completion: nil)
         }
     }
@@ -195,15 +185,12 @@ class BiographyContent: NSObject {
                 self.bioImageView.frame = CGRect(x: centerX - (imageWidth * 0.5), y: window.frame.height, width: imageWidth, height: imageHeight)
                 self.bioContentView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: contentHeight)
                 self.dimView.alpha = 0
-                
             }
-            
         }, completion: nil)
     }
     
     override init() {
         super.init()
-        
     }
 }
 

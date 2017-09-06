@@ -55,12 +55,10 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
         
         backgroundColor = UIColor.rgb(red: 225, green: 225, blue: 225)
         addSubview(collectionView)
-        
-        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        
         collectionView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0)
         collectionView.register(DirectoryCell.self, forCellWithReuseIdentifier: cellId)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
     }
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,9 +80,7 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-   
         return CGSize(width: frame.width * 0.8, height: frame.height * 0.12)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
