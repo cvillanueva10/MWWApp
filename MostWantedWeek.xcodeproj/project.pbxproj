@@ -47,7 +47,6 @@
 		568C8AB31F22FDA900DD1466 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB21F22FDA900DD1466 /* LoginController.swift */; };
 		568C8AB51F24609500DD1466 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB41F24609500DD1466 /* Page.swift */; };
 		568C8AB81F24BC2200DD1466 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C8AB71F24BC2200DD1466 /* ApiService.swift */; };
-		56AC84B21F5E0FE400A3B40E /* DeleteAnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AC84B11F5E0FE400A3B40E /* DeleteAnnouncementController.swift */; };
 		56AC84B41F60534700A3B40E /* DeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AC84B31F60534700A3B40E /* DeleteController.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,7 +93,6 @@
 		568C8AB21F22FDA900DD1466 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		568C8AB41F24609500DD1466 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		568C8AB71F24BC2200DD1466 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
-		56AC84B11F5E0FE400A3B40E /* DeleteAnnouncementController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAnnouncementController.swift; sourceTree = "<group>"; };
 		56AC84B31F60534700A3B40E /* DeleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteController.swift; sourceTree = "<group>"; };
 		CDA686C9E5B5933ECD2FBE53 /* Pods_MostWantedWeek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MostWantedWeek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E1A5957DED6A42B7F82E9C /* Pods-MostWantedWeek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MostWantedWeek.release.xcconfig"; path = "Pods/Target Support Files/Pods-MostWantedWeek/Pods-MostWantedWeek.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,6 +149,7 @@
 		567431D91F0DCD9D00BFC839 /* HelperFunctions */ = {
 			isa = PBXGroup;
 			children = (
+				567B10EC1F58E9D40064924F /* Archive */,
 				567431DA1F0DCDB200BFC839 /* Extensions.swift */,
 			);
 			name = HelperFunctions;
@@ -176,7 +175,6 @@
 				5679595C1F133E6200FFDAE2 /* MenuController.swift */,
 				567959791F1FD37C00FFDAE2 /* PageController.swift */,
 				56AC84B01F5E0FAA00A3B40E /* Biography */,
-				567B10EC1F58E9D40064924F /* Archive */,
 				567B10E51F5396AE0064924F /* Admin */,
 				56AC84AF1F5E0F7D00A3B40E /* Endorsements */,
 			);
@@ -217,7 +215,6 @@
 				567B10E61F5396C90064924F /* AdminLoginController.swift */,
 				567B10E81F5396DA0064924F /* AdminAccessController.swift */,
 				5620C6A91F2FFAFB002BBDD5 /* NewAnnouncementControllerViewController.swift */,
-				56AC84B11F5E0FE400A3B40E /* DeleteAnnouncementController.swift */,
 				56AC84B31F60534700A3B40E /* DeleteController.swift */,
 			);
 			name = Admin;
@@ -414,7 +411,6 @@
 				567431E41F12E4AF00BFC839 /* Announcement.swift in Sources */,
 				5646F9731F2A5A2E00187D10 /* LoginControllerHandlers.swift in Sources */,
 				567B10F21F5DDDD50064924F /* WaitingController.swift in Sources */,
-				56AC84B21F5E0FE400A3B40E /* DeleteAnnouncementController.swift in Sources */,
 				567959701F1EA5F400FFDAE2 /* LeftCell.swift in Sources */,
 				5620C6AC1F3181FE002BBDD5 /* Event.swift in Sources */,
 				568C8AB81F24BC2200DD1466 /* ApiService.swift in Sources */,

@@ -100,13 +100,6 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         }, withCancel: nil)
     }
     
-    func observeDeleted(index: Int) {
-
-        let correctedIndex = announcementObjs.count - index - 1
-        self.announcementObjs.remove(at: correctedIndex)
-        handleAutoRefresh()
-    }
-    
     func checkAgeOfAnnouncement(postedTime: Int) -> String {
         
         let currentTime: Int = Int(NSDate().timeIntervalSince1970)

@@ -96,12 +96,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     func setupMenuButton() {
         
-        let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named:  "menu"), for: UIControlState.normal)
-        button.addTarget(self, action:#selector(menuHandler), for: UIControlEvents.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25) //CGRectMake(0, 0, 30, 30)
-        let barButton = UIBarButtonItem.init(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
+        let leftButton = UIButton(type: .custom)
+        leftButton.setImage(UIImage(named:  "menu"), for: .normal)
+        leftButton.addTarget(self, action:#selector(menuHandler), for: .touchUpInside)
+        leftButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        let leftBarButton = UIBarButtonItem(customView: leftButton)
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightButton = UIButton(type: .custom)
+        rightButton.setImage(UIImage(named: "endorse"), for: .normal)
+        rightButton.addTarget(self, action: #selector(handlePresentEndorsementController), for: .touchUpInside)
+        rightButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        let rightBarButton = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     private func setupLowerMenuBar(){
@@ -145,25 +152,32 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navigationController?.pushViewController(biographyController, animated: true)
         }
         else if (menutab.tabLabelName == "Endorsements") {
-            
-            if Auth.auth().currentUser?.uid == nil {
-                endorsementController.navigationItem.title = menutab.tabLabelName
-                endorsementController.homeController = self
-                present(endorsementController, animated: true, completion: nil)
-            }
-            else {
-                waitingController.navigationItem.title = menutab.tabLabelName
-                waitingController.homeController = self
-                navigationController?.pushViewController(waitingController, animated: true)
-            }
+            handlePresentEndorsementController()
         }
     }
     
+    func handlePresentEndorsementController() {
+        
+        let navigationTitle = "Endorsements"
+        
+        if Auth.auth().currentUser?.uid == nil {
+            endorsementController.homeController = self
+            present(endorsementController, animated: true, completion: nil)
+        }
+        else {
+            waitingController.navigationItem.title = navigationTitle
+            waitingController.homeController = self
+            navigationController?.pushViewController(waitingController, animated: true)
+        }
+    }
+    
+    //Called from WaitingController
     func switchToEndorsementPage() {
         navigationController?.popViewController(animated: true)
         present(endorsementController, animated: true, completion: nil)
     }
     
+    //Called from EndorsementController
     func switchToWaitingPage() {
         waitingController.navigationItem.title = "Endorsements"
         dismiss(animated: true, completion: nil)
