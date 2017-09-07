@@ -42,7 +42,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         collectionView.register(AnnouncementCell.self, forCellWithReuseIdentifier: cellId)
         self.collectionView.addSubview(refreshControl)
     }
- 
+    
     func handleManualRefresh(refreshControl: UIRefreshControl) {
         
         for announcement in announcementObjs {
@@ -78,25 +78,17 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
                     announcement.timeFormatted = self.checkAgeOfAnnouncement(postedTime: Int(timeStamp))
                 }
                 
-                if let uid = announcement.fromId{
-                    Database.database().reference().child("users").child(uid).observe(.value, with: { (snapshot) in
-                        
-                        if let dictionary = snapshot.value as? [String: AnyObject] {
-                            announcement.name = dictionary["name"] as? String
-                           
-                        }
-                        self.announcementObjs.append(announcement)
-                        self.announcementObjs.sort(by: { (announcement1, announcement2) -> Bool in
-                            return (announcement1.timeStamp?.intValue)! > (announcement2.timeStamp?.intValue)!
-                        })
-                        
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                        
-                    }, withCancel: nil)
+                self.announcementObjs.append(announcement)
+                self.announcementObjs.sort(by: { (announcement1, announcement2) -> Bool in
+                    return (announcement1.timeStamp?.intValue)! > (announcement2.timeStamp?.intValue)!
+                })
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
                 }
+                
             }
+            
         }, withCancel: nil)
     }
     
@@ -112,7 +104,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
             return initialString + "\(difference) Seconds Ago"
         }
         else if difference >= 60 && difference < 120 {
-             return initialString + "\(difference / 60) Minute Ago"
+            return initialString + "\(difference / 60) Minute Ago"
         }
         else if difference >= 120 && difference < 3600 {
             return initialString + "\(difference / 60) Minutes Ago"
