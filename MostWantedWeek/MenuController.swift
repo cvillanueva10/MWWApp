@@ -44,9 +44,8 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "")
         var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "")
         var endorseTab = MenuTab(logoName: "endorse", labelName: "Endorsements", imageName: "")
-        var adminTab = MenuTab(logoName: "user_profile", labelName: "Admin Only", imageName: "")
         
-        return [aboutTab, brosTab, endorseTab, moneyTab, tieTab, scTab, adminTab]
+        return [aboutTab, brosTab, endorseTab, moneyTab, tieTab, scTab]
     }()
     
     var homeController: HomeController?
