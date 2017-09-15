@@ -40,7 +40,7 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        cv.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
         cv.isScrollEnabled = false
         cv.delegate = self
         cv.dataSource = self
@@ -60,7 +60,7 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        view.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
         setupViews()
         setupReturnHomeLabelView()
     }

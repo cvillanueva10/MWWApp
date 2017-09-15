@@ -56,7 +56,7 @@ class WaitingController: UIViewController {
                 if let dictionary = snapshot.value as? [String: Any] {
                     let initialTime = dictionary["initial"] as! Int
                     let timeElapsed = (currentTime - initialTime) / 60
-                    let timeRemaining = 1 - timeElapsed
+                    let timeRemaining = 120 - timeElapsed
                     
                     if timeRemaining == 1 {
                         self.minutesTextLabel.text = "Minute"

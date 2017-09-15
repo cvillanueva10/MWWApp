@@ -32,7 +32,7 @@ class PageHeaderCell: BaseCell {
         let label = UILabel()
         label.layer.borderColor = UIColor.black.cgColor
         label.layer.borderWidth = 1
-        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        label.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = .white
         label.textAlignment = .center
@@ -77,7 +77,7 @@ class PageBodyCell: BaseCell {
         label.text = "Breakdown"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 32)
-        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
+        label.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -42,7 +42,7 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         var moneyTab = MenuTab(logoName: "money", labelName: "Penny Wars", imageName: "")
         var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig", imageName: "")
         var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "")
-        var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "")
+        var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "brothers")
         var endorseTab = MenuTab(logoName: "endorse", labelName: "Endorsements", imageName: "")
         
         return [aboutTab, brosTab, endorseTab, moneyTab, tieTab, scTab]

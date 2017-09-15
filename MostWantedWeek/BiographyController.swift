@@ -64,6 +64,10 @@ class BiographyController: UICollectionViewController, UICollectionViewDelegateF
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PageHeaderCell
         header.headerLabel.text = "Meet the Bros"
+        if let imageName = tab?.tabImageName {
+            header.headerImage.image = UIImage(named: imageName)
+        }
+        
         return header
     }
     

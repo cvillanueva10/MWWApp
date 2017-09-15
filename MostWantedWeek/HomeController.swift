@@ -82,7 +82,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             flowLayout.scrollDirection = .horizontal
             flowLayout.minimumLineSpacing = 0
         }
-
+        
         collectionView?.backgroundColor = .white
         collectionView?.register(RightCell.self, forCellWithReuseIdentifier: rightCellId)
         collectionView?.register(CenterCell.self, forCellWithReuseIdentifier: centerCellId)
@@ -93,15 +93,23 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         lowerMenuBar.horizontalBarLeftAnchorConstrait?.constant = view.frame.width / 3
     }
-
+    
     func setupMenuButton() {
         
-        let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named:  "menu"), for: UIControlState.normal)
-        button.addTarget(self, action:#selector(menuHandler), for: UIControlEvents.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25) //CGRectMake(0, 0, 30, 30)
-        let barButton = UIBarButtonItem.init(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
+        let leftButton = UIButton(type: .custom)
+        leftButton.setImage(UIImage(named:  "menu"), for: .normal)
+        leftButton.addTarget(self, action:#selector(handleMenu), for: .touchUpInside)
+        leftButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let leftBarButton = UIBarButtonItem(customView: leftButton)
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightButton = UIButton(type: .custom)
+        rightButton.setImage(UIImage(named:  "endorse"), for: .normal)
+        rightButton.addTarget(self, action:#selector(handlePresentEndorsementWaiting), for: .touchUpInside)
+        rightButton.frame = CGRect(x: 0, y: 0, width: 45, height: 40)
+        let rightBarButton = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        
     }
     
     private func setupLowerMenuBar(){
@@ -110,7 +118,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         view.addConstraintsWithFormat(format: "V:[v0(50)]|",views: lowerMenuBar)
     }
     
-    func menuHandler(){
+    func handleMenu(){
         menuController.showSettings()
     }
     
@@ -136,8 +144,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navigationController?.pushViewController(pageController, animated: true)
         }
         else if (menutab.tabLabelName == "Admin Only"){
-           adminLoginController.homeController = self
-           present(adminLoginController, animated: true, completion: nil)
+            adminLoginController.homeController = self
+            present(adminLoginController, animated: true, completion: nil)
         }
         else if (menutab.tabLabelName == "Meet the Bros"){
             biographyController.navigationItem.title = menutab.tabLabelName
@@ -146,16 +154,23 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         else if (menutab.tabLabelName == "Endorsements") {
             
-            if Auth.auth().currentUser?.uid == nil {
-                endorsementController.navigationItem.title = menutab.tabLabelName
-                endorsementController.homeController = self
-                present(endorsementController, animated: true, completion: nil)
-            }
-            else {
-                waitingController.navigationItem.title = menutab.tabLabelName
-                waitingController.homeController = self
-                navigationController?.pushViewController(waitingController, animated: true)
-            }
+            handlePresentEndorsementWaiting()
+        }
+    }
+    
+    func handlePresentEndorsementWaiting(){
+        if Auth.auth().currentUser?.uid == nil {
+            endorsementController.homeController = self
+            present(endorsementController, animated: true, completion: nil)
+        }
+        else {
+            navigationController?.navigationBar.titleTextAttributes =
+                [NSForegroundColorAttributeName: UIColor.white]
+            navigationController?.navigationBar.tintColor = UIColor.white
+            navigationController?.navigationBar.tintColor = .white
+            waitingController.navigationItem.title = "Endorsements"
+            waitingController.homeController = self
+            navigationController?.pushViewController(waitingController, animated: true)
         }
     }
     

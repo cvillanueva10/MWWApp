@@ -19,7 +19,7 @@ class LowerMenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
+        cv.backgroundColor = .white
         cv.layer.borderColor = UIColor.rgb(red: 200, green: 200, blue: 200).cgColor
         cv.layer.borderWidth = 0.5
         cv.delegate = self
@@ -44,7 +44,7 @@ class LowerMenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
-        horizontalBarView.backgroundColor = UIColor.rgb(red: 200, green: 13, blue: 12)
+        horizontalBarView.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
         horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(horizontalBarView)
         
@@ -64,7 +64,6 @@ class LowerMenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             for: indexPath) as! MenuCell
         cell.imageView.image = UIImage(named: iconNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
         cell.tintColor = UIColor.rgb(red: 160, green: 160, blue: 160)
-        
         return cell
     }
     
@@ -95,7 +94,7 @@ class MenuCell: BaseCell {
     
     override var isSelected: Bool{
         didSet{
-            imageView.tintColor = isSelected ? UIColor.rgb(red: 200, green: 13, blue: 12) : UIColor.rgb(red: 160, green: 160, blue: 160)
+            imageView.tintColor = isSelected ? UIColor.rgb(red: 14, green: 20, blue: 200) : UIColor.rgb(red: 160, green: 160, blue: 160)
         }
     }
     

@@ -16,7 +16,7 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
     let headerId = "headerId"
     let bodyId = "bodyId"
     let dateIds = ["Before", "M", "T", "WED", "THUR", "FRI"]
-    let headerNames = ["Before Most Wanted Week", "M: Fellowship Day", "T: Service Day", "W: Scholarship Day", "R: Leadership Day", "F: Reveal Day"]
+    let headerNames = ["Before MWW", "M: Fellowship Day", "T: Service Day", "W: Scholarship Day", "R: Leadership Day", "F: Reveal Day"]
     let dimView = UIView()
     
     lazy var collectionView: UICollectionView = {
@@ -155,8 +155,9 @@ class EventHeaderCell: BaseCell {
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = .white
         label.textAlignment = .center
-        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
-        label.layer.borderColor = UIColor.black.cgColor
+        label.backgroundColor = UIColor.rgb(red: 0, green: 0, blue: 0)
+        //label.layer.borderColor = UIColor.black.cgColor
+        //label.layer.borderColor = UIColor.rgb(red: 255, green: 223, blue: 0).cgColor
         label.layer.borderWidth = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

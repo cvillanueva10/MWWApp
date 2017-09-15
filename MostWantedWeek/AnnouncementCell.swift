@@ -57,13 +57,13 @@ class AnnouncementCell: BaseCell{
     
     let headerLine: UIView = {
         let line = UIView()
-        line.backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
+        line.backgroundColor = UIColor.rgb(red: 160, green: 160, blue: 160)
         return line
     }()
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
+        view.backgroundColor = UIColor.rgb(red: 160, green: 160, blue: 160)
         return view
     }()
     
