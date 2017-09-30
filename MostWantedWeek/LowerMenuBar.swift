@@ -44,7 +44,7 @@ class LowerMenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
-        horizontalBarView.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
+        horizontalBarView.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(horizontalBarView)
         
@@ -94,7 +94,7 @@ class MenuCell: BaseCell {
     
     override var isSelected: Bool{
         didSet{
-            imageView.tintColor = isSelected ? UIColor.rgb(red: 14, green: 20, blue: 200) : UIColor.rgb(red: 160, green: 160, blue: 160)
+            imageView.tintColor = isSelected ? UIColor.rgb(red: 200, green: 32, blue: 31) : UIColor.rgb(red: 160, green: 160, blue: 160)
         }
     }
     

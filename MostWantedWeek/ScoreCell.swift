@@ -12,11 +12,11 @@ class ScoreCell: BaseCell {
     
     let teamLogo: UIImageView = {
         let logo = UIImageView()
-        logo.contentMode = .scaleAspectFill
+        logo.contentMode = .scaleAspectFit
         logo.translatesAutoresizingMaskIntoConstraints = false
         logo.layer.masksToBounds = true
-        logo.layer.cornerRadius = 35
-        logo.layer.borderColor = UIColor.black.cgColor
+      //  logo.layer.cornerRadius = 40
+        logo.layer.borderColor = UIColor.white.cgColor
         logo.layer.borderWidth = 0.5
         return logo
     }()
@@ -34,7 +34,7 @@ class ScoreCell: BaseCell {
     
     let scoreNumber: UILabel = {
         let num = UILabel()
-        num.font = UIFont.boldSystemFont(ofSize: 18)
+        num.font = UIFont.boldSystemFont(ofSize: 22)
         num.textColor = UIColor.rgb(red: 120, green: 120, blue: 120)
         num.textAlignment = .center
         num.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ class ScoreCell: BaseCell {
                 self.rankLabel.text = ranks[scoreRank]
             }
             if let scoreNum = score?.score {
-                self.scoreNumber.text = "Score: \(scoreNum)"
+                self.scoreNumber.text = "\(scoreNum) PTS"
             }
             if let logoName = score?.logo{
                 self.teamLogo.image = UIImage(named: logoName)
@@ -82,16 +82,16 @@ class ScoreCell: BaseCell {
         addSubview(rankLabel)
         addSubview(separatorLine)
 
-        addConstraintsWithFormat(format: "H:|-10-[v0(40)]-5-[v1]-5-[v2(70)]-10-|", views: rankLabel, teamName, teamLogo)
+        addConstraintsWithFormat(format: "H:|-10-[v0(40)]-5-[v1]-5-[v2(120)]-10-|", views: rankLabel, teamName, teamLogo)
         
         addConstraintsWithFormat(format: "V:|-35-[v0(40)]", views: rankLabel)
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorLine)
-        addConstraintsWithFormat(format: "V:|-20-[v0(70)]-20-[v1(10)]|", views: teamLogo, separatorLine)
+        addConstraintsWithFormat(format: "V:|-20-[v0]-20-[v1(10)]|", views: teamLogo, separatorLine)
         
         addConstraintsWithFormat(format: "V:|-10-[v0(50)]", views: teamName)
 
-        addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .top, relatedBy: .equal, toItem: teamName, attribute: .bottom, multiplier: 1, constant: -10))
+        addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .top, relatedBy: .equal, toItem: teamName, attribute: .bottom, multiplier: 1, constant: -5))
         addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .left, relatedBy: .equal, toItem: teamName, attribute: .left, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .right, relatedBy: .equal, toItem: teamName, attribute: .right, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: scoreNumber, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 40))

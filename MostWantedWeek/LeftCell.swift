@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    
     let cellId = "cellId"
     
     lazy var collectionView: UICollectionView = {
@@ -22,25 +22,39 @@ class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         return cv
     }()
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(handleManualRefresh(refreshControl:)), for: .valueChanged)
+        return refresh
+    }()
+    
     var scoreObjs = [Score]()
     
     override func setupViews() {
         super.setupViews()
         
         observeScore()
-
+        
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-    
+        
         collectionView.register(ScoreCell.self, forCellWithReuseIdentifier: cellId)
+        self.collectionView.addSubview(refreshControl)
+    }
+    
+    @objc func handleManualRefresh(refreshControl: UIRefreshControl) {
+        
+        scoreObjs.removeAll()
+        observeScore()
+        refreshControl.endRefreshing()
     }
     
     func observeScore(){
         
         let ref = Database.database().reference().child("scoreboard")
         ref.observe(.childAdded, with: { (snapshot) in
-
+            
             if let dictionary = snapshot.value as? [String: Any] {
                 let score = Score()
                 score.setValuesForKeys(dictionary)
@@ -80,5 +94,5 @@ class LeftCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-
+    
 }

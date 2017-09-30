@@ -55,7 +55,7 @@ class ProfileController: UIViewController {
     func setupNavigationBarView(){
         navigationItem.title = "Profile"
         navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor.white]
+            [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.tintColor = .white
         
@@ -105,7 +105,7 @@ class ProfileController: UIViewController {
         }
     }
     
-    func handleLogout(){
+    @objc func handleLogout(){
         do {
             try Auth.auth().signOut()
         } catch let logoutError {

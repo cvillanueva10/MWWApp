@@ -68,7 +68,7 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
         }
     }
     
-    func handleDismiss() {
+    @objc func handleDismiss() {
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
@@ -135,7 +135,7 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let eventDescription = eventObjs[indexPath.item].eventDescription, let window = UIApplication.shared.keyWindow {
             
-            let rect = NSString(string: eventDescription).boundingRect(with: CGSize(width: window.frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+            let rect = NSString(string: eventDescription).boundingRect(with: CGSize(width: window.frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)], context: nil)
             let knownHeight: CGFloat = 40 + 30
             
             return CGSize(width: window.frame.width, height: rect.height + knownHeight + 40)
@@ -155,9 +155,7 @@ class EventHeaderCell: BaseCell {
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = .white
         label.textAlignment = .center
-        label.backgroundColor = UIColor.rgb(red: 0, green: 0, blue: 0)
-        //label.layer.borderColor = UIColor.black.cgColor
-        //label.layer.borderColor = UIColor.rgb(red: 255, green: 223, blue: 0).cgColor
+        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         label.layer.borderWidth = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

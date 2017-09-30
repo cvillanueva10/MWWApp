@@ -14,6 +14,7 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
     let cellId = "cellId"
     
     let orgs = ["Delta Gamma", "Tri Delta", "Kappa Kappa Gamma", "Phi Mu", "Kappa Delta Chi", "Lambda Theta Nu", "New one"]
+    let images = ["DG", "TD", "KKG", "PM", "KDC", "", ""]
     
     let headerLabel: UILabel = {
         let label = UILabel()
@@ -40,7 +41,7 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
+        cv.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         cv.isScrollEnabled = false
         cv.delegate = self
         cv.dataSource = self
@@ -56,16 +57,16 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
     let confirmView = EndorsementConfirm()
     
     var homeController: HomeController?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
+        view.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         setupViews()
         setupReturnHomeLabelView()
     }
     
-    func handleReturnHome(){
+    @objc func handleReturnHome(){
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -115,11 +116,12 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    func handleEndorse(sender: UIButton) {
+    @objc func handleEndorse(sender: UIButton) {
         
+        self.handleDismiss()
         let ref = Database.database().reference().child("endorsements").child(orgs[sender.tag])
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-           
+            
             if let dictionary = snapshot.value as? [String: Any] {
                 let value: String = dictionary["value"] as! String
                 if var intValue = Int(value){
@@ -127,26 +129,26 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
                     ref.child("value").setValue("\(intValue)")
                 }
             }
-            self.handleDismiss()
+          
+            
             
             Auth.auth().signInAnonymously(completion: { (user, error) in
                 if error != nil {
                     print(error!)
                 }
                 let waitingController = WaitingController()
-            
                 waitingController.iniitalizeTimeStamp(uid: (user?.uid)!)
-                
                 self.homeController?.switchToWaitingPage()
             })
             
+            
         }, withCancel: nil)
-       
         
-
+        
+        
     }
     
-    func handleDismiss(){
+    @objc func handleDismiss(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             if let window = UIApplication.shared.keyWindow {
                 let confirmWidth: CGFloat = window.frame.width * 0.75
@@ -163,13 +165,14 @@ class EndorsementController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         displayConfirmView(indexPath: indexPath.item)
     }
-  
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 7
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! EndorsementCell
+        cell.orgImageView.image = UIImage(named: images[indexPath.item])
         return cell
     }
     
@@ -223,12 +226,12 @@ class EndorsementConfirm: UIView {
         addConstraint(NSLayoutConstraint(item: confirmButton, attribute: .left, relatedBy: .equal, toItem: cancelButton,     attribute: .right, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: confirmButton, attribute: .right, relatedBy: .equal, toItem: messageTextView, attribute: .right, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: confirmButton, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: frame.height * 0.4))
-   
+        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

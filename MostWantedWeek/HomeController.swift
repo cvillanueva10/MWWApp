@@ -99,14 +99,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let leftButton = UIButton(type: .custom)
         leftButton.setImage(UIImage(named:  "menu"), for: .normal)
         leftButton.addTarget(self, action:#selector(handleMenu), for: .touchUpInside)
-        leftButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        leftButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        leftButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         let leftBarButton = UIBarButtonItem(customView: leftButton)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         let rightButton = UIButton(type: .custom)
         rightButton.setImage(UIImage(named:  "endorse"), for: .normal)
         rightButton.addTarget(self, action:#selector(handlePresentEndorsementWaiting), for: .touchUpInside)
-        rightButton.frame = CGRect(x: 0, y: 0, width: 45, height: 40)
+        rightButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        rightButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        rightButton.frame = CGRect(x: 0, y: 0, width: 55, height: 45)
+        rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, -15)
         let rightBarButton = UIBarButtonItem(customView: rightButton)
         self.navigationItem.rightBarButtonItem = rightBarButton
         
@@ -118,7 +123,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         view.addConstraintsWithFormat(format: "V:[v0(50)]|",views: lowerMenuBar)
     }
     
-    func handleMenu(){
+    @objc func handleMenu(){
         menuController.showSettings()
     }
     
@@ -134,7 +139,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let biographyController = BiographyController(collectionViewLayout: layout)
         
         navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor.white]
+            [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.tintColor = .white
         
@@ -158,14 +163,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
-    func handlePresentEndorsementWaiting(){
+    @objc func handlePresentEndorsementWaiting(){
         if Auth.auth().currentUser?.uid == nil {
             endorsementController.homeController = self
             present(endorsementController, animated: true, completion: nil)
         }
         else {
             navigationController?.navigationBar.titleTextAttributes =
-                [NSForegroundColorAttributeName: UIColor.white]
+                [NSAttributedStringKey.foregroundColor: UIColor.white]
             navigationController?.navigationBar.tintColor = UIColor.white
             navigationController?.navigationBar.tintColor = .white
             waitingController.navigationItem.title = "Endorsements"
@@ -180,7 +185,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func switchToWaitingPage() {
+        navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.tintColor = .white
         waitingController.navigationItem.title = "Endorsements"
+        waitingController.homeController = self
         dismiss(animated: true, completion: nil)
         navigationController?.pushViewController(waitingController, animated: true)
     }

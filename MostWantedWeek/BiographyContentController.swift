@@ -22,7 +22,7 @@ class BiographyContent: NSObject {
     
     lazy var bioContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rgb(red: 0, green: 0, blue: 0)
+        view.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleDismiss))
         swipeDown.direction = UISwipeGestureRecognizerDirection.down
         view.addGestureRecognizer(swipeDown)
@@ -42,7 +42,7 @@ class BiographyContent: NSObject {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.rgb(red: 0, green: 0, blue: 0)
+        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = .white
         label.textAlignment = .center
@@ -172,7 +172,7 @@ class BiographyContent: NSObject {
         }
     }
     
-    func handleDismiss(gesture: UISwipeGestureRecognizer){
+    @objc func handleDismiss(gesture: UISwipeGestureRecognizer){
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             

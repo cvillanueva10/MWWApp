@@ -17,7 +17,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         imagePicker.delegate = self
         imagePicker.navigationBar.tintColor = .white
         imagePicker.navigationBar.isTranslucent = false
-        imagePicker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        imagePicker.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         present(imagePicker, animated: true, completion: nil)
     }
     

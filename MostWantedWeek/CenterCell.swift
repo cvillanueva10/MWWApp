@@ -47,7 +47,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         
         for announcement in announcementObjs {
             if let timeStamp = announcement.timeStamp {
-                announcement.timeFormatted = checkAgeOfAnnouncement(postedTime: Int(timeStamp))
+                announcement.timeFormatted = checkAgeOfAnnouncement(postedTime: Int(truncating: timeStamp))
             }
         }
         announcementObjs.removeAll()
@@ -58,7 +58,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
     func handleAutoRefresh() {
         for announcement in announcementObjs {
             if let timeStamp = announcement.timeStamp {
-                announcement.timeFormatted = checkAgeOfAnnouncement(postedTime: Int(timeStamp))
+                announcement.timeFormatted = checkAgeOfAnnouncement(postedTime: Int(truncating: timeStamp))
             }
         }
         announcementObjs.removeAll()
@@ -75,7 +75,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
                 let announcement = Announcement()
                 announcement.setValuesForKeys(dictionary)
                 if let timeStamp = announcement.timeStamp {
-                    announcement.timeFormatted = self.checkAgeOfAnnouncement(postedTime: Int(timeStamp))
+                    announcement.timeFormatted = self.checkAgeOfAnnouncement(postedTime: Int(truncating: timeStamp))
                 }
                 
                 if let uid = announcement.fromId{
@@ -160,7 +160,7 @@ class CenterCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate
         
         if let announcementText = announcementObjs[indexPath.item].text{
             
-            let rect = NSString(string: announcementText).boundingRect(with: CGSize(width: frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+            let rect = NSString(string: announcementText).boundingRect(with: CGSize(width: frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)], context: nil)
             let knownHeight: CGFloat = 16 + 30 + 8 + 44 + 8 + 16 + 1
             
             return CGSize(width: frame.width, height: rect.height + knownHeight + 60)

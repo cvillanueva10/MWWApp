@@ -16,8 +16,9 @@ class DirectoryCell: BaseCell{
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textAlignment = .center
         label.layer.cornerRadius = 5
+        label.layer.masksToBounds = true
         label.layer.borderColor = UIColor.black.cgColor
-        label.layer.borderWidth = 1
+        label.layer.borderWidth = 1.5
         label.textColor = .black
         label.backgroundColor = .white
         return label
@@ -44,7 +45,7 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 225, green: 225, blue: 225)
+        cv.backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -53,7 +54,7 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
     override func setupViews() {
         super.setupViews()
         
-        backgroundColor = UIColor.rgb(red: 225, green: 225, blue: 225)
+        backgroundColor = UIColor.rgb(red: 200, green: 200, blue: 200)
         addSubview(collectionView)
         collectionView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0)
         collectionView.register(DirectoryCell.self, forCellWithReuseIdentifier: cellId)
@@ -69,6 +70,7 @@ class RightCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate,
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DirectoryCell
         cell.dateLabel.text = dates[indexPath.item]
+        cell.layer.cornerRadius = 5
         return cell
     }
     

@@ -138,13 +138,13 @@ class AdminLoginController: UIViewController {
     
     let adminAccessController = AdminAccessController()
     
-    func handleReturnHome(){
+    @objc func handleReturnHome(){
         passwordTextField.text = ""
         errorDisplayView.text = ""
         self.dismiss(animated: true, completion: nil)
     }
     
-    func handleLogin() {
+    @objc func handleLogin() {
         
         guard let passwordText = passwordTextField.text else {
             return

@@ -21,10 +21,17 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         return view
     }()
     
-    let logoView: UIImageView = {
+    lazy var logoView: UIImageView = {
         let logo = UIImageView()
+        logo.image = UIImage(named: "MH")
         logo.backgroundColor = UIColor.red
         return logo
+    }()
+    
+    let backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
     }()
     
     lazy var collectionView: UICollectionView = {
@@ -36,12 +43,12 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         cv.backgroundColor = UIColor.white
         return cv
     }()
-  
+    
     var menuTabObjs: [MenuTab] = {
         var aboutTab = MenuTab(logoName: "about", labelName: "About MWW", imageName: "mww_group")
-        var moneyTab = MenuTab(logoName: "money", labelName: "Penny Wars", imageName: "")
-        var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig", imageName: "")
-        var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "")
+        var moneyTab = MenuTab(logoName: "money", labelName: "Penny Wars", imageName: "jugs")
+        var tieTab = MenuTab(logoName: "tiegame", labelName: "Charm-A-Sig", imageName: "charm")
+        var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "sc")
         var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "brothers")
         var endorseTab = MenuTab(logoName: "endorse", labelName: "Endorsements", imageName: "")
         
@@ -57,32 +64,35 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
             dimView.alpha = 0
             
             window.addSubview(dimView)
+            window.addSubview(backgroundView)
             window.addSubview(collectionView)
             window.addSubview(logoView)
             
             let width = window.frame.width * 0.7
             
-            collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
-            logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
-            
+            collectionView.frame = CGRect(x: -1 * width, y: 225, width: width, height: window.frame.height - 200)
+            logoView.frame = CGRect(x: -1 * width, y: 20, width: width, height: 200)
+            backgroundView.frame = CGRect(x: -1 * width, y: 0, width: width, height: window.frame.height)
             dimView.frame = window.frame
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.backgroundView.frame = CGRect(x: 0, y: 0, width: width, height: window.frame.height)
                 self.dimView.alpha = 1
-                self.collectionView.frame = CGRect(x: 0, y: 150, width: width, height: window.frame.height - 150)
-                self.logoView.frame = CGRect(x: 0, y: 0, width: width, height: 150)
+                self.collectionView.frame = CGRect(x: 0, y: 225, width: width, height: window.frame.height - 200)
+                self.logoView.frame = CGRect(x: 0, y: 20, width: width, height: 200)
             }, completion: nil)
         }
     }
     
-    func handleDismiss(gesture: UISwipeGestureRecognizer){
+    @objc func handleDismiss(gesture: UISwipeGestureRecognizer){
         
         if let window = UIApplication.shared.keyWindow{
             let width = window.frame.width * 0.7
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.dimView.alpha = 0
-                self.collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
-                self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
+                self.collectionView.frame = CGRect(x: -1 * width, y: 225, width: width, height: window.frame.height - 220)
+                self.backgroundView.frame = CGRect(x: -1 * width, y: 0, width: width, height: window.frame.height)
+                self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 200)
             })
         }
     }
@@ -115,8 +125,9 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         if let window = UIApplication.shared.keyWindow{
             let width = window.frame.width * 0.7
             self.dimView.alpha = 0
-            self.collectionView.frame = CGRect(x: -1 * width, y: 150, width: width, height: window.frame.height - 150)
-            self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 150)
+            self.collectionView.frame = CGRect(x: -1 * width, y: 225, width: width, height: window.frame.height - 150)
+            self.backgroundView.frame = CGRect(x: -1 * width, y: 0, width: width, height: window.frame.height)
+            self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 200)
         }
         
     }){(completion: Bool) in

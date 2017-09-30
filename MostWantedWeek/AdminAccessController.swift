@@ -25,11 +25,11 @@ class AdminAccessController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.register(AdminAccessCell.self, forCellWithReuseIdentifier: cellId)
     }
     
-    func handleNewAnnouncement() {
+    @objc func handleNewAnnouncement() {
         let newAnnouncementController = NewAnnouncementController()
         navigationController?.pushViewController(newAnnouncementController, animated: true)
     }
-    func handleDeleteAnnouncement() {
+    @objc func handleDeleteAnnouncement() {
 //        let layout = UICollectionViewFlowLayout()
 //        let deleteAnnouncementController = DeleteAnnouncementController(collectionViewLayout: layout)
 //        navigationController?.pushViewController(deleteAnnouncementController, animated: true)
@@ -37,7 +37,7 @@ class AdminAccessController: UICollectionViewController, UICollectionViewDelegat
         let deleteController = DeleteController()
         navigationController?.pushViewController(deleteController, animated: true)
     }
-    func handleUpdateScore() {
+    @objc func handleUpdateScore() {
         print(123)
     }
     

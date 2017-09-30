@@ -50,7 +50,7 @@ class NewAnnouncementController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor.white]
+            [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.tintColor = .white
         navigationItem.title = "New Announcement"
@@ -65,7 +65,7 @@ class NewAnnouncementController: UIViewController {
         announcementTextField.becomeFirstResponder()
     }
     
-    func handleCreatePost(){
+    @objc func handleCreatePost(){
         
         if announcementTextField.text.isEmpty{
             print("Message is empty")

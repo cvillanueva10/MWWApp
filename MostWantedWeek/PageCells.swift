@@ -32,7 +32,7 @@ class PageHeaderCell: BaseCell {
         let label = UILabel()
         label.layer.borderColor = UIColor.black.cgColor
         label.layer.borderWidth = 1
-        label.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
+        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = .white
         label.textAlignment = .center
@@ -77,7 +77,7 @@ class PageBodyCell: BaseCell {
         label.text = "Breakdown"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 32)
-        label.backgroundColor = UIColor.rgb(red: 14, green: 20, blue: 200)
+        label.backgroundColor = UIColor.rgb(red: 200, green: 32, blue: 31)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -148,7 +148,7 @@ class PageBodyCell: BaseCell {
         }
     }
     
-    func handleDismiss() {
+    @objc func handleDismiss() {
         
         if let window = UIApplication.shared.keyWindow {
             
@@ -164,7 +164,7 @@ class PageBodyCell: BaseCell {
         
         if let descriptionText = descriptionTextView.text {
             
-            let rect = NSString(string: descriptionText).boundingRect(with: CGSize(width: frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
+            let rect = NSString(string: descriptionText).boundingRect(with: CGSize(width: frame.width, height: 2000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)], context: nil)
 
             return rect.height + 100
         }
