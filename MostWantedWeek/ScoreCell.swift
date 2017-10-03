@@ -34,7 +34,7 @@ class ScoreCell: BaseCell {
     
     let scoreNumber: UILabel = {
         let num = UILabel()
-        num.font = UIFont.boldSystemFont(ofSize: 22)
+        num.font = UIFont.boldSystemFont(ofSize: 20)
         num.textColor = UIColor.rgb(red: 120, green: 120, blue: 120)
         num.textAlignment = .center
         num.translatesAutoresizingMaskIntoConstraints = false

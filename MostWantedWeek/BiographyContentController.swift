@@ -88,7 +88,7 @@ class BiographyContent: NSObject {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.textColor = UIColor.rgb(red: 100, green: 100, blue: 100)
-        textView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 20)
+        textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -113,7 +113,7 @@ class BiographyContent: NSObject {
         }
    
         if let year = biography.year {
-            yearLabel.text = "Year: " + year
+            yearLabel.text = year + " Year"
         }
      
         nameLabel.text = biography.name

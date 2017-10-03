@@ -15,7 +15,7 @@ class EventCollectionView: NSObject, UICollectionViewDataSource, UICollectionVie
     var selectedDate: Int?
     let headerId = "headerId"
     let bodyId = "bodyId"
-    let dateIds = ["Before", "M", "T", "WED", "THUR", "FRI"]
+    let dateIds = ["B", "M", "T", "W", "R", "F"]
     let headerNames = ["Before MWW", "M: Fellowship Day", "T: Service Day", "W: Scholarship Day", "R: Leadership Day", "F: Reveal Day"]
     let dimView = UIView()
     

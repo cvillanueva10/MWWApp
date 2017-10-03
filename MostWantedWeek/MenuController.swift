@@ -23,8 +23,12 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
     
     lazy var logoView: UIImageView = {
         let logo = UIImageView()
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleDismiss))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        logo.addGestureRecognizer(swipeLeft)
         logo.image = UIImage(named: "MH")
         logo.backgroundColor = UIColor.red
+        logo.isUserInteractionEnabled = true
         return logo
     }()
     
@@ -51,8 +55,8 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
         var scTab = MenuTab(logoName: "star", labelName: "Star & Crescent", imageName: "sc")
         var brosTab = MenuTab(logoName: "bros", labelName: "Meet the Bros", imageName: "brothers")
         var endorseTab = MenuTab(logoName: "endorse", labelName: "Endorsements", imageName: "")
-        
-        return [aboutTab, brosTab, endorseTab, moneyTab, tieTab, scTab]
+        var fillerTab = MenuTab(logoName: "", labelName: "", imageName: "")
+        return [aboutTab, brosTab, moneyTab, tieTab, scTab, fillerTab]
     }()
     
     var homeController: HomeController?
@@ -70,16 +74,16 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
             
             let width = window.frame.width * 0.7
             
-            collectionView.frame = CGRect(x: -1 * width, y: 225, width: width, height: window.frame.height - 200)
-            logoView.frame = CGRect(x: -1 * width, y: 20, width: width, height: 200)
+            collectionView.frame = CGRect(x: -1 * width, y: 250, width: width, height: window.frame.height - 225)
+            logoView.frame = CGRect(x: -1 * width, y: 20, width: width, height: 225)
             backgroundView.frame = CGRect(x: -1 * width, y: 0, width: width, height: window.frame.height)
             dimView.frame = window.frame
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.backgroundView.frame = CGRect(x: 0, y: 0, width: width, height: window.frame.height)
                 self.dimView.alpha = 1
-                self.collectionView.frame = CGRect(x: 0, y: 225, width: width, height: window.frame.height - 200)
-                self.logoView.frame = CGRect(x: 0, y: 20, width: width, height: 200)
+                self.collectionView.frame = CGRect(x: 0, y: 250, width: width, height: window.frame.height - 225)
+                self.logoView.frame = CGRect(x: 0, y: 20, width: width, height: 225)
             }, completion: nil)
         }
     }
@@ -90,9 +94,9 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
             let width = window.frame.width * 0.7
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.dimView.alpha = 0
-                self.collectionView.frame = CGRect(x: -1 * width, y: 225, width: width, height: window.frame.height - 220)
+                self.collectionView.frame = CGRect(x: -1 * width, y: 250, width: width, height: window.frame.height - 225)
                 self.backgroundView.frame = CGRect(x: -1 * width, y: 0, width: width, height: window.frame.height)
-                self.logoView.frame = CGRect(x: -1 * width, y: 0, width: width, height: 200)
+                self.logoView.frame = CGRect(x: -1 * width, y: 20, width: width, height: 225)
             })
         }
     }
@@ -103,9 +107,10 @@ class MenuController: NSObject, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SideMenuCells
-        
         cell.menuTab = menuTabObjs[indexPath.item]
-        
+        if cell.menuTab?.tabLabelName == "" {
+            cell.isUserInteractionEnabled = false
+        }
         return cell
     }
     

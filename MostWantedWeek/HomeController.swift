@@ -105,15 +105,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let leftBarButton = UIBarButtonItem(customView: leftButton)
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        let rightButton = UIButton(type: .custom)
-        rightButton.setImage(UIImage(named:  "endorse"), for: .normal)
-        rightButton.addTarget(self, action:#selector(handlePresentEndorsementWaiting), for: .touchUpInside)
-        rightButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
-        rightButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        rightButton.frame = CGRect(x: 0, y: 0, width: 55, height: 45)
-        rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, -15)
-        let rightBarButton = UIBarButtonItem(customView: rightButton)
-        self.navigationItem.rightBarButtonItem = rightBarButton
+//        let rightButton = UIButton(type: .custom)
+//        rightButton.setImage(UIImage(named:  "endorse"), for: .normal)
+//        rightButton.addTarget(self, action:#selector(handlePresentEndorsementWaiting), for: .touchUpInside)
+//        rightButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+//        rightButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+//        rightButton.frame = CGRect(x: 0, y: 0, width: 55, height: 45)
+//        rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, -15)
+//        let rightBarButton = UIBarButtonItem(customView: rightButton)
+//        self.navigationItem.rightBarButtonItem = rightBarButton
         
     }
     
